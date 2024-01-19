@@ -1,2 +1,3 @@
 Name, RA [deg], DEC [deg]
-Test object 1, 10, 0
+Test object 1, 10.0, -20.1
+Test object 2, 30.0, 20.8
