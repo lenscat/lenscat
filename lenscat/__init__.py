@@ -11,6 +11,7 @@ def convert_to_astropy_unit(table):
     if a column name contains a pair of square bracket,
     convert that column with the proper astropy unit if possible. 
     After the conversion, the square bracket will be removed from the name.
+    Note that changes are made **in-place**.
 
     For example, suppose we have the following column names in a table:
     ["Name", "RA [deg]", "DEC [deg]"]
