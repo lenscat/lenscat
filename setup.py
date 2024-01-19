@@ -21,6 +21,11 @@ setuptools.setup(
     packages=[
         "lenscat",
     ],
+    package_data={
+        "lenscat": [
+            "data/catalog.csv",
+        ]
+    },
     install_requires=[
         "astropy",
         "ligo.skymap",
