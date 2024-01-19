@@ -28,6 +28,7 @@ setuptools.setup(
     },
     install_requires=[
         "astropy",
+        "pandas",
         "ligo.skymap",
     ],
     classifiers=[
