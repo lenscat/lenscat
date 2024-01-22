@@ -56,5 +56,5 @@ ACTIVELY BEING ADDED:
 
   - Finding strong gravitational lenses in the Kilo Degree Survey with Convolutional Neural Networks
     https://ui.adsabs.harvard.edu/abs/2017MNRAS.472.1129P/abstract
-    NOTE: This list does not have any information about the locations of the sources, which is very annoying. I will add these in manually at some point.
+
 
