@@ -4,6 +4,9 @@ import re
 import astropy.units as u
 import requests
 
+from astropy.coordinates import SkyCoord
+from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
+
 def convert_to_astropy_unit(table):
     """
     Loop over the column names of the given table,
@@ -76,3 +79,9 @@ def parse_skymap_str(skymap_str):
 
     # Exhausted all possible resolutions, give up
     raise ValueError(f"Does not recognize {skymap_str}")
+
+def crossmatch_with_catalog(skymap, catalog):
+    coordinates = SkyCoord(catalog["RA"], catalog["DEC"])
+    crossmatch_res = ligoskymap_crossmatch(skymap, coordinates)
+
+    return crossmatch_res
