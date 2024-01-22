@@ -2,16 +2,17 @@
 
 A public and community-maintained catalog of known strong gravitational lenses. 
 
-![Known Lenses](knownlenses.png)
+![Known Lenses](lenscat_galclust.png)
 
 Structure:
 
-['Name'] = Names of galaxies/galaxy clusters \
+['name'] = Names of galaxies/galaxy clusters \
 ['RA'] = RA in dergees \
 ['DEC'] = DEC in degrees \
 ['zlens'] = Lens redshift (if known) \
-['type'] =  Type of lens (i.e. galaxy or galaxy cluster) \
-['rank'] = Ranking whether it is a confirmed lens or a probable lens (see individual references for internal ranking systems).
+['type'] = Type of lens (i.e. galaxy or galaxy cluster) \
+['rank'] = Ranking whether it is a confirmed lens or a probable lens (see individual references for internal ranking systems) \
+['ref'] = Reference to the corresponding catalogue or study
 
 
 This catalogue contains the known strong lenses from the following studies:
