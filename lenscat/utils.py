@@ -1,6 +1,8 @@
+import os
 import copy
 import re
 import astropy.units as u
+import requests
 
 def convert_to_astropy_unit(table):
     """
@@ -32,3 +34,45 @@ def convert_to_astropy_unit(table):
                 # Rename column
                 new_name = re.sub(_regex, '', colname).strip()
                 table.rename_column(colname, new_name)
+
+def parse_skymap_str(skymap_str):
+    # If skymap_str points to a valid filepath,
+    # do nothing and return
+    if os.path.exists(skymap_str):
+        return skymap_str
+
+    _supported_GWTC1_event_list = [
+        "GW150914",
+        "GW151012",
+        "GW151226",
+        "GW170104",
+        "GW170608",
+        "GW170729",
+        "GW170809",
+        "GW170814",
+        "GW170817",
+        "GW170818",
+        "GW170823",
+    ]
+    if skymap_str in _supported_GWTC1_event_list:
+        # skymap_str points to an event in GWTC-1
+        dcc_url_template = "https://dcc.ligo.org/public/0157/P1800381/007/{}_skymap.fits.gz"
+        url = dcc_url_template.format(skymap_str)
+        if requests.options(url).ok:
+            return url
+    elif skymap_str.startswith('S'):
+        # Maybe skymap_str is the name of a superevent
+        gracedb_skymap_url_template = "https://gracedb.ligo.org/api/superevents/{}/files/{}.multiorder.fits"
+
+        # Try using bilby skymap if possible
+        url = gracedb_skymap_url_template.format(skymap_str, "Bilby")
+        if requests.options(url).ok:
+            return url
+        
+        # If bilby skymap is not available, try bayestar next
+        url = gracedb_skymap_url_template.format(skymap_str, "bayestar")
+        if requests.options(url).ok:
+            return url
+
+    # Exhausted all possible resolutions, give up
+    raise ValueError(f"Does not recognize {skymap_str}")

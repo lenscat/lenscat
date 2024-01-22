@@ -5,7 +5,7 @@ from astropy.coordinates import SkyCoord
 from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
 
-from .utils import convert_to_astropy_unit
+from .utils import convert_to_astropy_unit, parse_skymap_str
 
 # The relative path to the actual catalog in csv format
 _catalog_path = "data/catalog.csv"
@@ -17,6 +17,3 @@ catalog = Table.read(
         *_catalog_path.split('/')
     ), format="ascii.csv")
 convert_to_astropy_unit(catalog)
-
-def crossmatch(skymap):
-    pass
