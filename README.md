@@ -66,17 +66,7 @@ This catalog contains the known strong lenses from the following studies:
   - (COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses
     https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract
 
-ACTIVELY BEING ADDED:
+## Acknowledgements
+This project was supported by the research grant no. VIL37766 and no. VIL53101 from Villum Fonden, and the DNRF Chair program grant no. DNRF162 by the Danish National Research Foundation.
 
-  - The Sloan Lens ACS Survey. IX. Colors, Lensing, and Stellar Masses of Early-Type Galaxies
-    https://ui.adsabs.harvard.edu/abs/2009ApJ...705.1099A/abstract
-
-  - The SL2S Galaxy-scale Lens Sample. IV. The Dependence of the Total Mass Density Profile of Early-type Galaxies on Redshift, Stellar        Mass, and Size
-    https://ui.adsabs.harvard.edu/abs/2013ApJ...777...98S/abstract
-  - First Catalog of Strong Lens Candidates in the COSMOS Field
-    https://iopscience.iop.org/article/10.1086/526426/pdf
-
-  - Finding strong gravitational lenses in the Kilo Degree Survey with Convolutional Neural Networks
-    https://ui.adsabs.harvard.edu/abs/2017MNRAS.472.1129P/abstract
-
-
+This project has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 101131233.
