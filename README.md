@@ -67,7 +67,7 @@ This catalog contains the known strong lenses from the following studies:
     https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract
 
 ## See also
-- [Master Lens Database](https://test.masterlens.org/index.php)
+[Master Lens Database](https://test.masterlens.org/index.php)
 
 ## Acknowledgements
 This project was supported by the research grant no. VIL37766 and no. VIL53101 from Villum Fonden, and the DNRF Chair program grant no. DNRF162 by the Danish National Research Foundation.
