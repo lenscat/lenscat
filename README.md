@@ -4,7 +4,26 @@ A public and community-maintained catalog of known strong gravitational lenses.
 
 ![Known Lenses](lenscat_galclust.png)
 
-Structure:
+## Quickstart
+The `lenscat` catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv) in this repository.
+
+We also provide a _python package_ `lenscat`, available in pypi. Simply do
+```bash
+pip install lenscat
+```
+to install the latest version. The code converts the catalog in the csv file into a `Table` object in `astropy`. To access the table, simply run
+```python
+import lenscat
+lenscat.catalog
+```
+The code also implements `crossmatch()`, a wrapper to the `crossmatch()` function in `ligo.skymap`, to cross-match a gravitational-wave (GW) skymap with the catalog. For example, to cross-match the GW skymap of GW170817 with the catalog, simply run
+```python
+import lenscat
+lenscat.crossmatch("GW170817")
+```
+where the code will automatically download the skymap from the internet. Refer to the documentation for more details.
+
+## Format
 
 ['name'] = Names of galaxies/galaxy clusters \
 ['RA'] = RA in dergees \
@@ -14,7 +33,7 @@ Structure:
 ['rank'] = Ranking whether it is a confirmed lens or a probable lens (see individual references for internal ranking systems) \
 ['ref'] = Reference to the corresponding catalogue or study
 
-
+## References
 This catalogue contains the known strong lenses from the following studies:
 
   - GLQ Database:
