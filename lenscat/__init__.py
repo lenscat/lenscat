@@ -1,5 +1,6 @@
 import os
 import pathlib
+import copy
 from astropy.table import Table
 from ligo.skymap.io import read_sky_map
 
@@ -25,4 +26,15 @@ def crossmatch(skymap):
     else:
         raise ValueError(f"Does not support {skymap}")
     
-    return crossmatch_with_catalog(_skymap, catalog)
+    result = crossmatch_with_catalog(_skymap, catalog)
+    table_with_result = copy.copy(catalog)
+    table_with_result.add_column(
+        result.searched_prob,
+        name="searched probability"
+    )
+    table_with_result.add_column(
+        result.searched_area,
+        name="searched area"
+    )
+
+    return table_with_result
