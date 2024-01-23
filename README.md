@@ -5,7 +5,8 @@ A public and community-maintained catalog of known strong gravitational lenses.
 ![Known Lenses](lenscat_galclust.png)
 
 ## Quickstart
-The `lenscat` catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv) in this repository.
+
+The catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv).
 
 We also provide a _python package_ `lenscat`, available in pypi. Simply do
 ```bash
@@ -34,7 +35,8 @@ where the code will automatically download the skymap from the internet. Refer t
 ['ref'] = Reference to the corresponding catalogue or study
 
 ## References
-This catalogue contains the known strong lenses from the following studies:
+
+This catalog contains the known strong lenses from the following studies:
 
   - GLQ Database:
     https://research.ast.cam.ac.uk/lensedquasars/index.html
