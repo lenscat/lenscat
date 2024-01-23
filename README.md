@@ -27,11 +27,11 @@ where the code will automatically download the skymap from the internet. Refer t
 ## Format
 
 ['name'] = Names of galaxies/galaxy clusters \
-['RA'] = RA in dergees \
-['DEC'] = DEC in degrees \
+['RA [deg]'] = RA in dergees \
+['DEC [deg]'] = DEC in degrees \
 ['zlens'] = Lens redshift (if known) \
 ['type'] = Type of lens (i.e. galaxy or galaxy cluster) \
-['rank'] = Ranking whether it is a confirmed lens or a probable lens (see individual references for internal ranking systems) \
+['grading'] = Grading whether it is a confirmed lens or a probable lens (see individual references for internal ranking systems) \
 ['ref'] = Reference to the corresponding catalogue or study
 
 ## References
@@ -65,6 +65,12 @@ This catalog contains the known strong lenses from the following studies:
 
   - (COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses
     https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract
+
+  - SLACS. XIII. Galaxy-scale strong lens candidates
+    https://ui.adsabs.harvard.edu/abs/2019yCat..18510048S/abstract
+
+  - RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data
+    https://iopscience.iop.org/article/10.1088/0004-637X/785/2/144
 
 ## See also
 [Master Lens Database](https://test.masterlens.org/index.php)
