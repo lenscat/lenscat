@@ -1,5 +1,4 @@
-0,1,2,3,4,5,6
-name,RA,DEC,zlens,type,rank,ref
+name,RA [deg],DEC [deg],zlens,type,rank,ref
 J0011-0845,2.83435,-8.7643,-,galaxy,confirmed,https://research.ast.cam.ac.uk/lensedquasars/index.html
 J0013+5119,3.348077,51.3183,-,galaxy,confirmed,https://research.ast.cam.ac.uk/lensedquasars/index.html
 PSJ0028+0631,7.09369,6.5317,-,galaxy,confirmed,https://research.ast.cam.ac.uk/lensedquasars/index.html
