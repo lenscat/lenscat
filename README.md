@@ -17,6 +17,8 @@ to install the latest version. The code converts the catalog in the csv file int
 import lenscat
 lenscat.catalog
 ```
+![catalog](https://github.com/lenscat/lenscat/assets/55488840/fd18ad03-0adf-472d-b516-c6110cf7bef1)
+
 The code also implements `crossmatch()`, a wrapper to the `crossmatch()` function in `ligo.skymap`, to cross-match a gravitational-wave (GW) skymap with the catalog. For example, to cross-match the GW skymap of GW170817 with the catalog, simply run
 ```python
 import lenscat
