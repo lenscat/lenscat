@@ -25,6 +25,8 @@ import lenscat
 lenscat.crossmatch("GW170817")
 ```
 where the code will automatically download the skymap from the internet. Refer to the documentation for more details.
+![crossmatch](https://github.com/lenscat/lenscat/assets/55488840/d10c3780-3658-426f-a326-82ad77b075fd)
+
 
 ## Format
 
