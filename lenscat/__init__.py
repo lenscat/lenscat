@@ -3,6 +3,7 @@ import pathlib
 import copy
 from astropy.table import Table
 from ligo.skymap.io import read_sky_map
+import astropy.units as u
 
 from .utils import convert_to_astropy_unit, parse_skymap_str, crossmatch_with_catalog
 
@@ -36,5 +37,10 @@ def crossmatch(skymap):
         result.searched_area,
         name="searched area"
     )
+    # Searched areas are in sqdeg
+    table_with_result["searched area"].unit = u.deg**2
+
+    # Sort by searched prob, then by seared area
+    table_with_result.sort(["searched probability", "searched area"])
 
     return table_with_result
