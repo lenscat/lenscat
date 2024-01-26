@@ -1,4 +1,6 @@
 # $\texttt{lenscat}$
+![license](https://img.shields.io/github/license/lenscat/lenscat)
+[![GitHub release](https://img.shields.io/github/v/release/lenscat/lenscat.svg)](https://github.com/lenscat/lenscat/releases)
 
 A public and community-maintained catalog of known strong gravitational lenses. 
 
