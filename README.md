@@ -33,13 +33,24 @@ Out[1]:
     J0102+2445   15.69675    24.7544   0.272? galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
 ```
 
-The code also implements `crossmatch()`, a wrapper to the `crossmatch()` function in `ligo.skymap`, to cross-match a gravitational-wave (GW) skymap with the catalog. For example, to cross-match the GW skymap of GW170817 with the catalog, simply run
+The code also implements `crossmatch()`, a wrapper to the `crossmatch()` function in `ligo.skymap`, to cross-match a gravitational-wave (GW) skymap with the catalog. For example, to cross-match the GW skymap of GW190814 (download from [here](https://gracedb.ligo.org/apiweb/superevents/S190814bv/files/GW190814_PublicationSamples.multiorder.fits)) with the catalog, simply run
 ```python
-import lenscat
-lenscat.crossmatch("GW170817")
+In [1]: import lenscat; lenscat.crossmatch("GW190814_PublicationSamples.multiorder.fits")
+Out[1]:
+<Table length=1530>
+       name             RA         DEC      ... searched probability   searched area
+                       deg         deg      ...                             deg2
+      str20          float64     float64    ...       float64             float64
+------------------ ----------- ------------ ... -------------------- ------------------
+     DESJ0133-3137    23.36279    -31.61788 ...   0.8993434968830626 18.766081348393186
+  MACSJ0035.4-2015        8.85 -20.27083333 ...   0.9881400284668479  46.21360633943737
+          0047-281 12.42458333 -27.87380556 ...   0.9899384024067811  48.32495441567177
+             A2813     10.8625 -20.61694444 ...   0.9924501903529119  51.82638259178721
+     DESJ0102-2911    15.73954    -29.18939 ...    0.993395993986835   53.3476023237325
+     DESJ0124-2918    21.11886    -29.31561 ...   0.9951314306436486  56.65232105175158
+     DESJ0058-2317    14.52023    -23.28713 ...    0.997642284491974  63.57649362474393
+     DESJ0113-2924    18.48794     -29.4109 ...   0.9996945313931366  77.47729462355434
 ```
-where the code will automatically download the skymap from the internet. Refer to the documentation for more details.
-<img width="899" alt="crossmatch" src="https://github.com/lenscat/lenscat/assets/55488840/38b78d6c-99e1-41d9-ae19-4c33186dd57e">
 
 ## Format
 
