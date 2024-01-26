@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/lenscat/lenscat.svg)](https://github.com/lenscat/lenscat/releases)
 [![Upload Python Package](https://github.com/lenscat/lenscat/actions/workflows/python-publish.yml/badge.svg)](https://github.com/lenscat/lenscat/actions/workflows/python-publish.yml)
 
-A public and community-maintained catalog of known strong gravitational lenses. 
+A public and community-contributed catalog of known strong gravitational lenses. 
 
 ![Known Lenses](lenscat_galclust.png)
 
