@@ -16,10 +16,22 @@ pip install lenscat
 ```
 to install the latest version. The code converts the catalog in the csv file into a `Table` object in `astropy`. To access the table, simply run
 ```python
-import lenscat
-lenscat.catalog
+In [1]: import lenscat; lenscat.catalog
+Out[1]:
+<Table length=1530>
+     name          RA        DEC      zlens    type   grading                                     ref
+                  deg        deg
+    str20       float64    float64    str15    str7     str9                                     str76
+-------------- ---------- ---------- -------- ------ --------- --------------------------------------------------------------------------
+    J0011-0845    2.83435    -8.7643        - galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+    J0013+5119   3.348077    51.3183        - galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+  PSJ0028+0631    7.09369     6.5317        - galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+  PSJ0030-1525     7.5636   -15.4177 measured galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+    J0047+2514 11.9465943    25.2411        - galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+   HE0047-1756    12.6158   -17.6693    0.407 galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+ DESJ0053-2012    13.4349   -20.2091 observed galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
+    J0102+2445   15.69675    24.7544   0.272? galaxy confirmed                    https://research.ast.cam.ac.uk/lensedquasars/index.html
 ```
-<img width="623" alt="catalog" src="https://github.com/lenscat/lenscat/assets/55488840/253744e4-5860-4456-a016-fa7c5745205f">
 
 The code also implements `crossmatch()`, a wrapper to the `crossmatch()` function in `ligo.skymap`, to cross-match a gravitational-wave (GW) skymap with the catalog. For example, to cross-match the GW skymap of GW170817 with the catalog, simply run
 ```python
