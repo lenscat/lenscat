@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  plot_catalog:
+  deploy:
     if: ${{ github.event.pull_request.merged && contains( github.event.pull_request.labels.*.name, 'catalog') }}
     runs-on: ubuntu-latest
     steps:
