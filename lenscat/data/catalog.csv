@@ -1583,13 +1583,13 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 010021-004349,15.089921,-0.730342,0.555,galaxy,probable,https://arxiv.org/abs/2203.12805
 010201+025404,15.506659,2.901355,0.558,galaxy,probable,https://arxiv.org/abs/2203.12805
 010220-003332,15.58454,-0.55889,,galaxy,probable,https://arxiv.org/abs/2312.07333
-010315+000456,15.8163,0.0822,0.266,cluster,probable,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+010315+000456,15.8163,0.0822,0.266,cluster,probable,https://arxiv.org/abs/2002.01611 DECaLS
 010434+035410,16.145235,3.902951,0.544,galaxy,probable,https://arxiv.org/abs/2203.12805
 010455+000336,16.2307,0.0601,0.272,cluster,probable,https://arxiv.org/abs/2002.01611
 010516+012621,16.317,1.4392,0.265,cluster,probable,https://arxiv.org/abs/2002.01611
 010622-004910,16.59544,-0.8197,,galaxy,probable,https://arxiv.org/abs/2312.07333
 010705+020852,16.77346,2.14793,0.637,galaxy,probable,https://arxiv.org/abs/2312.07333
-010709+011729,16.7876,1.2914,0.422,cluster,probable,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+010709+011729,16.7876,1.2914,0.422,cluster,probable,https://arxiv.org/abs/2002.01611 DECaLS
 010730+000920,16.87787,0.15571,0.3,galaxy,probable,https://arxiv.org/abs/2312.07333
 010746+011319,16.94317,1.2221,,galaxy,probable,https://arxiv.org/abs/2312.07333
 010752+021847,16.9681,2.3132,0.61,galaxy,probable,https://arxiv.org/abs/2002.01611
@@ -1960,7 +1960,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 022258-012403,35.74328,-1.40099,0.69,galaxy,probable,https://arxiv.org/abs/2312.07333
 022259-025827,35.7482,-2.9742,0.46,cluster,probable,https://arxiv.org/abs/2002.01611
 022302-031049,35.75934,-3.180554,0.6,galaxy,probable,https://arxiv.org/abs/2004.00634
-022307-052757,35.782078,-5.466038,0.496,galaxy,probable,https://arxiv.org/abs/1704.01585 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+022307-052757,35.782078,-5.466038,0.496,galaxy,probable,https://arxiv.org/abs/1704.01585 DECaLS
 022314-002558,35.811009,-0.432829,0.561,galaxy,probable,https://arxiv.org/abs/2203.12805
 022315-062906,35.814099,-6.485053,0.506,cluster,confirmed,https://arxiv.org/abs/1704.01585 More et al. 2012 https://arxiv.org/abs/2002.01611 More et al. 2016
 022318-030345,35.825528,-3.062739,0.427,galaxy,probable,https://arxiv.org/abs/1704.01585
@@ -1979,9 +1979,9 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 022450-021505,36.20964,-2.251499,0.74,galaxy,probable,https://arxiv.org/abs/2004.00634
 022456-034831,36.2374,-3.8087,0.61,cluster,probable,https://arxiv.org/abs/2002.01611
 022511-045433,36.296005,-4.9093,0.238,cluster,confirmed,SL2S More et al. 2012 https://arxiv.org/abs/1911.02587 More et al. 2016 https://arxiv.org/abs/2312.07333
-022531-041233,36.3797,-4.2091,0.773,cluster,probable,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+022531-041233,36.3797,-4.2091,0.773,cluster,probable,https://arxiv.org/abs/2002.01611 DECaLS
 022533-053204,36.3888,-5.5346,0.566,cluster,confirmed,https://arxiv.org/abs/2002.01611 More et al. 2016 https://arxiv.org/abs/2004.00634 More et al. 2016
-022536-041517,36.403019,-4.254967,0.556,galaxy,probable,https://arxiv.org/abs/1704.01585 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d Gavazzi et al. 2014
+022536-041517,36.403019,-4.254967,0.556,galaxy,probable,https://arxiv.org/abs/1704.01585 DECaLS Gavazzi et al. 2014
 022545-023618,36.439815,-2.605061,1.03,galaxy,probable,https://arxiv.org/abs/2004.00634
 022610-042011,36.544397,-4.336562,0.496,galaxy,confirmed,https://arxiv.org/abs/1704.01585 SL2S https://arxiv.org/abs/1904.10465 https://arxiv.org/abs/2312.07333
 022613-044018,36.557581,-4.671795,0.62,galaxy,probable,https://arxiv.org/abs/1704.01585
@@ -1995,7 +1995,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 022733-043724,36.889,-4.62337,0.921,galaxy,probable,https://arxiv.org/abs/2312.07333
 022736-021152,36.9,-2.1978,0.66,cluster,probable,https://arxiv.org/abs/2002.01611
 022802-021201,37.0122,-2.2004,0.206,cluster,probable,https://arxiv.org/abs/2002.01611
-022805-051733,37.0235,-5.2926,0.34,cluster,confirmed,https://arxiv.org/abs/2002.01611 More et al. 2016 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d More et al. 2016
+022805-051733,37.0235,-5.2926,0.34,cluster,confirmed,https://arxiv.org/abs/2002.01611 More et al. 2016 DECaLS More et al. 2016
 022833-020710,37.13786,-2.11946,0.56,galaxy,probable,https://arxiv.org/abs/2312.07333
 022834-055948,37.142012,-5.996838,0.72,galaxy,probable,https://arxiv.org/abs/2004.00634 https://arxiv.org/abs/2312.07333
 022840-041844,37.166964,-4.312274,0.45,galaxy,probable,https://arxiv.org/abs/2004.00634 https://arxiv.org/abs/2312.07333
@@ -2054,7 +2054,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 023225-044938,38.10652,-4.82744,,galaxy,probable,https://arxiv.org/abs/2312.07333
 023238-025532,38.16128,-2.92579,0.903,galaxy,probable,https://arxiv.org/abs/2312.07333
 023246-055956,38.19282,-5.9989,,galaxy,probable,https://arxiv.org/abs/2312.07333
-023249-032326,38.2077,-3.3905,0.45,cluster,confirmed,https://arxiv.org/abs/2002.01611 DES https://iopscience.iop.org/article/10.3847/1538-3881/ab089d CASSOWARY https://arxiv.org/abs/2004.00634
+023249-032326,38.2077,-3.3905,0.45,cluster,confirmed,https://arxiv.org/abs/2002.01611 DES DECaLS CASSOWARY https://arxiv.org/abs/2004.00634
 023251-040823,38.21486,-4.139942,0.352,galaxy,confirmed,SL2S https://arxiv.org/abs/2312.07333
 023257-051515,38.239079,-5.254356,0.73,galaxy,probable,https://arxiv.org/abs/2004.00634
 023302-044224,38.262455,-4.706827,0.628,galaxy,probable,https://arxiv.org/abs/1704.01585
@@ -2124,7 +2124,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 023929-041923,39.870961,-4.323193,0.592,galaxy,probable,https://arxiv.org/abs/1809.07341
 023938-035617,39.910652,-3.9383,0.601,galaxy,probable,https://arxiv.org/abs/1809.07341
 023941-043741,39.9235,-4.6282,0.31,galaxy,probable,https://arxiv.org/abs/2002.01611
-023942-012747,39.9261,-1.4631,0.35,cluster,probable,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+023942-012747,39.9261,-1.4631,0.35,cluster,probable,https://arxiv.org/abs/2002.01611 DECaLS
 023953-013456,39.9713,-1.5822,0.373,cluster,confirmed,https://arxiv.org/abs/2002.01611 DES
 083035+005902,127.64637,0.98398,,galaxy,probable,https://arxiv.org/abs/2312.07333
 083155+020442,127.980164,2.078417,0.496,galaxy,probable,https://arxiv.org/abs/1704.01585
@@ -2649,7 +2649,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 094123+000446,145.34598,0.079621,0.486,galaxy,confirmed,https://arxiv.org/abs/1809.07341 https://arxiv.org/abs/2312.07333
 094321+002249,145.84072,0.3805,0.696,galaxy,probable,https://arxiv.org/abs/1809.07341
 094327-015453,145.8651,-1.9148,0.45,cluster,probable,https://arxiv.org/abs/2002.01611 https://arxiv.org/abs/2312.07333
-094348+005926,145.9507,0.9906,0.43,cluster,confirmed,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+094348+005926,145.9507,0.9906,0.43,cluster,confirmed,https://arxiv.org/abs/2002.01611 DECaLS
 094400-014944,146.00277,-1.829032,0.708,galaxy,probable,https://arxiv.org/abs/1809.07341
 094427-014742,146.114458,-1.795111,0.539,galaxy,confirmed,BELLS https://arxiv.org/abs/1904.10465
 094633+002853,146.6406,0.4815,0.458,cluster,probable,https://arxiv.org/abs/2002.01611
@@ -2712,7 +2712,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 100657+002849,151.7391,0.4804,0.731,cluster,probable,https://arxiv.org/abs/2002.01611
 100659+024735,151.74702,2.793135,0.482,galaxy,probable,https://arxiv.org/abs/1809.07341
 100702-010735,151.76179,-1.12662,0.3,galaxy,probable,https://arxiv.org/abs/2312.07333
-100703+020834,151.76641,2.14303,0.342,galaxy,probable,https://arxiv.org/abs/2312.07333 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+100703+020834,151.76641,2.14303,0.342,galaxy,probable,https://arxiv.org/abs/2312.07333 DECaLS
 100712-012316,151.8008,-1.3878,0.93,cluster,probable,https://arxiv.org/abs/2002.01611
 100729-011434,151.8742,-1.2427,0.452,cluster,probable,https://arxiv.org/abs/2002.01611
 100759+022725,151.99614,2.45697,,galaxy,probable,https://arxiv.org/abs/2312.07333
@@ -2721,7 +2721,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 101406-005405,153.5286,-0.9015,0.357,cluster,probable,https://arxiv.org/abs/2002.01611
 101642+000145,154.1784,0.0293,0.501,cluster,probable,https://arxiv.org/abs/2002.01611
 101734-001227,154.391945,-0.207579,0.846,galaxy,probable,https://arxiv.org/abs/2203.12805
-101847-012132,154.6971,-1.3589,0.388,cluster,confirmed,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+101847-012132,154.6971,-1.3589,0.388,cluster,confirmed,https://arxiv.org/abs/2002.01611 DECaLS
 102041+002226,155.17144,0.37389,0.614,galaxy,probable,https://arxiv.org/abs/2203.12805
 102117+031442,155.322457,3.245006,0.674,galaxy,probable,https://arxiv.org/abs/2203.12805
 102311-000702,155.798878,-0.117384,0.473,galaxy,probable,https://arxiv.org/abs/2203.12805
@@ -3473,7 +3473,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 142056+004033,215.234323,0.675925,0.74,galaxy,probable,https://arxiv.org/abs/2004.00634 https://arxiv.org/abs/2312.07333
 142058+001037,215.243529,0.177199,0.526,galaxy,probable,https://arxiv.org/abs/1704.01585
 142102+011319,215.26121,1.22213,0.552,galaxy,probable,https://arxiv.org/abs/2312.07333
-142103+002219,215.2653,0.3719,0.67,cluster,probable,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d https://arxiv.org/abs/2004.00634
+142103+002219,215.2653,0.3719,0.67,cluster,probable,https://arxiv.org/abs/2002.01611 DECaLS https://arxiv.org/abs/2004.00634
 142103+002300,215.2662,0.3834,0.64,cluster,probable,https://arxiv.org/abs/2002.01611
 142107-001951,215.28319,-0.33101,0.98,galaxy,probable,https://arxiv.org/abs/2312.07333
 142111+000947,215.2966,0.163,0.545,cluster,probable,https://arxiv.org/abs/2002.01611
@@ -4484,7 +4484,7 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 232535+010238,351.3985,1.04414,,galaxy,probable,https://arxiv.org/abs/2312.07333
 232546-003916,351.44244,-0.654693,0.601,galaxy,probable,https://arxiv.org/abs/2203.12805
 232547+003739,351.44998,0.62764,0.443,galaxy,probable,https://arxiv.org/abs/2312.07333
-232557-005226,351.48909,-0.87412,0.794,galaxy,probable,https://arxiv.org/abs/2312.07333 DES https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+232557-005226,351.48909,-0.87412,0.794,galaxy,probable,https://arxiv.org/abs/2312.07333 DES DECaLS
 232602+014639,351.5111,1.7776,0.437,cluster,probable,https://arxiv.org/abs/2002.01611
 232644-012257,351.68476,-1.38265,,galaxy,probable,https://arxiv.org/abs/2312.07333
 232651+000206,351.71635,0.03516,,galaxy,probable,https://arxiv.org/abs/2312.07333
@@ -4583,6 +4583,6 @@ SDSSJ2356+1427,359.19833,14.45506,0.1446,galaxy,probable,https://ui.adsabs.harva
 235730+010133,359.377643,1.02596,0.638,galaxy,probable,https://arxiv.org/abs/2203.12805
 235811+003309,359.5475,0.5527,0.639,cluster,probable,https://arxiv.org/abs/2002.01611
 235853+012406,359.721708,1.401816,0.481,galaxy,probable,https://arxiv.org/abs/2203.12805
-235933+020823,359.8897,2.1398,0.43,cluster,confirmed,https://arxiv.org/abs/2002.01611 https://iopscience.iop.org/article/10.3847/1538-3881/ab089d
+235933+020823,359.8897,2.1398,0.43,cluster,confirmed,https://arxiv.org/abs/2002.01611 DECaLS
 235948-005913,359.95245,-0.98702,0.758,galaxy,probable,https://arxiv.org/abs/2312.07333
 235952+004154,359.9698,0.6985,0.267,cluster,probable,https://arxiv.org/abs/2002.01611
