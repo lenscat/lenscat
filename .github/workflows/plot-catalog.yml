@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   plot_catalog:
-    if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged && contains( github.event.pull_request.labels.*.name, 'catalog') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
