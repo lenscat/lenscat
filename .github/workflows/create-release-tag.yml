@@ -1,9 +1,10 @@
 name: Create Release and Tag
 
 on:
-  push:
-    paths:
-      - '**_version.py'
+  workflow_run:
+    workflows: ["Changes in the catalog"]
+    types:
+      - completed
 
 permissions: write-all
 
