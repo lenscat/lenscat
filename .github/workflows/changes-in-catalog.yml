@@ -29,6 +29,7 @@ jobs:
       - name: Change _version.py file
         run : |
           python -c "import lenscat._version; vers=lenscat._version.__version__.split('.');vers[-1]=str(int(vers[-1])+1);f=open('lenscat/_version.py', 'w');f.write(\"__version__ = '\"+'.'.join(vers)+\"'\");f.close()"
+          echo "VERSTR=$(python -c 'import lenscat._version;print(lenscat._version.__version__)')" >> $GITHUB_ENV
       - name: Configure git user info
         run: |
           git config user.name github-actions
