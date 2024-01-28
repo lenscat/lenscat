@@ -5,7 +5,7 @@
 
 A public and community-contributed catalog of known strong gravitational lenses. 
 
-![Known Lenses](catalog.png)
+![Known Lenses](https://raw.githubusercontent.com/lenscat/lenscat/main/catalog.png)
 
 ## Quickstart
 
