@@ -101,6 +101,9 @@ This catalog contains the known strong lenses from the following studies:
   - RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data
     https://iopscience.iop.org/article/10.1088/0004-637X/785/2/144
 
+  - Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List
+    https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/
+
 ## See also
 [Master Lens Database](https://test.masterlens.org/index.php)
 
