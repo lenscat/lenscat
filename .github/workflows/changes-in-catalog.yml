@@ -26,16 +26,21 @@ jobs:
       - name: Generate plot
         run: |
           python -c 'import lenscat; from lenscat.utils import plot_catalog; plot_catalog(lenscat.catalog)'
-      - name: Bump version
+      - name: Change _version.py file
         run : |
           python -c "import lenscat._version; vers=lenscat._version.__version__.split('.');vers[-1]=str(int(vers[-1])+1);f=open('lenscat/_version.py', 'w');f.write(\"__version__ = '\"+'.'.join(vers)+\"'\");f.close()"
           echo "VERSTR=$(python -c 'import lenscat._version;print(lenscat._version.__version__)')" >> $GITHUB_ENV
-      - name: Upload plot to repository
+      - name: Configure git user info
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+      - name: Upload plot to repository
+        continue-on-error: true # Allow failure
+        run: |
           git add catalog.png
           git commit -m "Re-generate catalog plot"
+      - name: Bump version
+        run: |
           git add lenscat/_version.py
           git commit -m "Bump to v${{ env.VERSTR }}"
           git push
