@@ -1,4 +1,4 @@
-name: Plot catalog
+name: Changes in the catalog
 
 on:
   pull_request:
@@ -26,10 +26,28 @@ jobs:
       - name: Generate plot
         run: |
           python -c 'import lenscat; from lenscat.utils import plot_catalog; plot_catalog(lenscat.catalog)'
+      - name: Bump version
+        run : |
+          python -c python -c "import lenscat._version; vers=lenscat._version.__version__.split('.');vers[-1]=str(int(vers[-1])+1);f=open('lenscat/_version.py', 'w');f.write(\"__version__ = '\"+'.'.join(vers)+\"'\");f.close()"
+          echo "VERSTR=$(python -c 'import lenscat._version;print(lenscat._version.__version__)')" >> $GITHUB_ENV
       - name: Upload plot to repository
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog.png
           git commit -m "Re-generate catalog plot"
+          git add lenscat/_version.py
+          git commit -m "Bump to v${{ env.VERSTR }}"
           git push
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSTR }}
+          release_name: ${{ env.VERSTR }}
+          body: |
+            Changes in the catalog
+          draft: false
+          prerelease: false
