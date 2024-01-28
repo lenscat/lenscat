@@ -1,4 +1,4 @@
-name: plot catalog
+name: Plot catalog
 
 on:
   pull_request:
