@@ -39,9 +39,11 @@ jobs:
         run: |
           git add catalog.png
           git commit -m "Re-generate catalog plot"
+          git push
       - name: Bump version
         run: |
           git add lenscat/_version.py
           git commit -m "Bump to v${{ env.VERSTR }}"
           git push
           git tag -a ${{ env.VERSTR }} -m "${{ env.VERSTR }}"
+          git push origin ${{ env.VERSTR }}
