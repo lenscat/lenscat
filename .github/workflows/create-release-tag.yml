@@ -1,0 +1,29 @@
+name: Create Release and Tag
+
+on:
+  push:
+    paths:
+      - 'lenscat/_version.py'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get version string
+        run: |
+          echo "VERSTR=$(python -c 'import lenscat._version;print(lenscat._version.__version__)')" >> $GITHUB_ENV
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSTR }}
+          release_name: ${{ env.VERSTR }}
+          body: |
+            Changes in the catalog
+          draft: false
+          prerelease: false
