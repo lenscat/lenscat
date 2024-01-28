@@ -39,15 +39,4 @@ jobs:
           git add lenscat/_version.py
           git commit -m "Bump to v${{ env.VERSTR }}"
           git push
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.VERSTR }}
-          release_name: ${{ env.VERSTR }}
-          body: |
-            Changes in the catalog
-          draft: false
-          prerelease: false
+          git tag -a ${{ env.VERSTR }} -m "${{ env.VERSTR }}"
