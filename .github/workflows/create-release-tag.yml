@@ -3,7 +3,9 @@ name: Create Release and Tag
 on:
   push:
     paths:
-      - 'lenscat/_version.py'
+      - '**_version.py'
+
+permissions: write-all
 
 jobs:
   release:
