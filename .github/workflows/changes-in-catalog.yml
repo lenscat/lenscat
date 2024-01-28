@@ -28,7 +28,7 @@ jobs:
           python -c 'import lenscat; from lenscat.utils import plot_catalog; plot_catalog(lenscat.catalog)'
       - name: Bump version
         run : |
-          python -c python -c "import lenscat._version; vers=lenscat._version.__version__.split('.');vers[-1]=str(int(vers[-1])+1);f=open('lenscat/_version.py', 'w');f.write(\"__version__ = '\"+'.'.join(vers)+\"'\");f.close()"
+          python -c "import lenscat._version; vers=lenscat._version.__version__.split('.');vers[-1]=str(int(vers[-1])+1);f=open('lenscat/_version.py', 'w');f.write(\"__version__ = '\"+'.'.join(vers)+\"'\");f.close()"
           echo "VERSTR=$(python -c 'import lenscat._version;print(lenscat._version.__version__)')" >> $GITHUB_ENV
       - name: Upload plot to repository
         run: |
