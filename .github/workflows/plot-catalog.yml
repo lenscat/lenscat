@@ -6,6 +6,9 @@ on:
       - main
     types: [closed]
 
+permissions:
+  contents: write
+
 jobs:
   plot_catalog:
     if: ${{ github.event.pull_request.merged }}
