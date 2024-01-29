@@ -98,8 +98,8 @@ def plot_catalog(catalog, filename="catalog.png"):
     from matplotlib import pyplot as plt
 
     # Filter catalog by type
-    galaxy_lenses = catalog.filter_by_type(catalog, "galaxy")
-    cluster_lenses = catalog.filter_by_type(catalog, "cluster")
+    galaxy_lenses = catalog.filter_by_type("galaxy")
+    cluster_lenses = catalog.filter_by_type("cluster")
 
     # Fiducial value for plotting
     _NSIDE = 32 
