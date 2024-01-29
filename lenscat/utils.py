@@ -112,3 +112,30 @@ def plot_catalog(catalog, filename="catalog.png"):
     plt.legend(labelcolor="white", facecolor="dimgrey")
     plt.title("Lenses included in "+r"${\tt lenscat}$", fontsize=18, color="white")
     plt.savefig(filename, transparent=True)
+
+def check_possible_duplicates(catalog, RA_search_width=0.01, DEC_search_width=0.01):
+    # Make a report listing all possible duplicates
+    num_duplicates = 0
+
+    # Loop over all entries in the catalog
+    for i in range(len(catalog)):
+        # Perform a simple search on RA and DEC
+        # with a window of width specified in RA_search_width
+        # and DEC_search_width respectively
+        RA_center = catalog[i]["RA"]
+        DEC_center = catalog[i]["DEC"]
+
+        res = catalog.search(
+            RA_range=(RA_center-RA_search_width/2, RA_center+RA_search_width/2),
+            DEC_range=(DEC_center-DEC_search_width/2, DEC_center+DEC_search_width/2)
+        )
+
+        # If there are more than one entry in the search result,
+        # then there are possible duplicates
+        if len(res) > 1:
+            num_duplicates += 1
+            print(f"Possible duplicates found for {catalog[i]['name']}")
+            print(res)
+            print("")
+
+    print(f"Total number of possible duplicates: {num_duplicates}")
