@@ -52,18 +52,18 @@ This feature is implemented as `.search()`. One can search/filter by any combina
 - type of the lenses (specified as `lens_type`)
 - grading of the lenses (specified as `grading`)
 
-For example, to get a list of the cluster-scale lenses which are confirmed and with a redshift $z_{\mathrm{lens}} \geq 1$, run
+For example, to get a list of the cluster-scale lenses which are confirmed and with a redshift $z_{\mathrm{lens}} \geq 1$ together with the reference, run
 ```python
-In [1]: import lenscat, numpy; lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf))
+In [1]: import lenscat, numpy; lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
 Out[1]:
 <Catalog length=3>
-     name         RA       DEC    zlens   type   grading
+     name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
-    str20      float64   float64  str15   str7     str9
-------------- --------- --------- ----- ------- ---------
-021118-042729 32.827087 -4.458069  1.02 cluster confirmed
-023100-062139   37.7516   -6.3608  1.17 cluster confirmed
-220859+020655  332.2495    2.1153  1.04 cluster confirmed
+    str20      float64   float64  str15   str7     str9                                        str171
+------------- --------- --------- ----- ------- --------- --------------------------------------------------------------------------------
+021118-042729 32.827087 -4.458069  1.02 cluster confirmed https://arxiv.org/abs/2004.00634 More et al. 2012 More et al. 2016
+023100-062139   37.7516   -6.3608  1.17 cluster confirmed                                                 https://arxiv.org/abs/2002.01611
+220859+020655  332.2495    2.1153  1.04 cluster confirmed                                                 https://arxiv.org/abs/2002.01611
 ```
 
 ### Crossmatching with a skymap
@@ -84,8 +84,6 @@ Out[1]:
      DESJ0130-3744    22.51201    -37.74938     0.68  galaxy confirmed   0.9999999999999968  173.7862404115262
 AGEL 014253-183116 10.72041667 -18.52105556  0.63627  galaxy confirmed   0.9999999999999968 187.58212970468517
 ```
-
-
 
 ## Format
 
