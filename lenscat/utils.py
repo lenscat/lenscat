@@ -5,9 +5,6 @@ import numpy as np
 import astropy.units as u
 import requests
 
-from astropy.coordinates import SkyCoord
-from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
-
 def convert_to_astropy_unit(table):
     """
     TODO: convert this to a proper docstring
@@ -83,15 +80,6 @@ def parse_skymap_str(skymap_str):
     # Exhausted all possible resolutions, give up
     raise ValueError(f"Does not recognize {skymap_str}")
 
-def crossmatch_with_catalog(skymap, catalog):
-    coordinates = SkyCoord(catalog["RA"], catalog["DEC"])
-    crossmatch_res = ligoskymap_crossmatch(skymap, coordinates)
-
-    return crossmatch_res
-
-def filter_catalog_by_type(catalog, type):
-    return catalog[catalog["type"] == type]
-
 def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
     TODO: convert this to a proper docstring
@@ -110,8 +98,8 @@ def plot_catalog(catalog, filename="catalog.png"):
     from matplotlib import pyplot as plt
 
     # Filter catalog by type
-    galaxy_lenses = filter_catalog_by_type(catalog, "galaxy")
-    cluster_lenses = filter_catalog_by_type(catalog, "cluster")
+    galaxy_lenses = catalog.filter_by_type("galaxy")
+    cluster_lenses = catalog.filter_by_type("cluster")
 
     # Fiducial value for plotting
     _NSIDE = 32 
