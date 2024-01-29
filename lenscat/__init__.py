@@ -5,7 +5,7 @@ from astropy.table import Table
 from ligo.skymap.io import read_sky_map
 import astropy.units as u
 
-from .utils import convert_to_astropy_unit, parse_skymap_str, crossmatch_with_catalog
+from .utils import convert_to_astropy_unit, parse_skymap_str, crossmatch_with_catalog, search_catalog
 
 # The relative path to the actual catalog in csv format
 _catalog_path = "data/catalog.csv"
@@ -44,3 +44,13 @@ def crossmatch(skymap):
     table_with_result.sort(["searched probability", "searched area"])
 
     return table_with_result
+
+def search(RA_range=None, DEC_range=None, zlens_range=None, lens_type=None, grading=None):
+    return search_catalog(
+        catalog,
+        RA_range=RA_range,
+        DEC_range=DEC_range,
+        zlens_range=zlens_range,
+        lens_type=lens_type,
+        grading=grading
+    )
