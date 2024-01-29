@@ -60,10 +60,10 @@ Out[1]:
      name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
     str20      float64   float64  str15   str7     str9                                        str171
-------------- --------- --------- ----- ------- --------- --------------------------------------------------------------------------------
+------------- --------- --------- ----- ------- --------- ------------------------------------------------------------------
 021118-042729 32.827087 -4.458069  1.02 cluster confirmed https://arxiv.org/abs/2004.00634 More et al. 2012 More et al. 2016
-023100-062139   37.7516   -6.3608  1.17 cluster confirmed                                                 https://arxiv.org/abs/2002.01611
-220859+020655  332.2495    2.1153  1.04 cluster confirmed                                                 https://arxiv.org/abs/2002.01611
+023100-062139   37.7516   -6.3608  1.17 cluster confirmed                                   https://arxiv.org/abs/2002.01611
+220859+020655  332.2495    2.1153  1.04 cluster confirmed                                   https://arxiv.org/abs/2002.01611
 ```
 
 ### Crossmatching with a skymap
