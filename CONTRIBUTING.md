@@ -3,6 +3,14 @@ To contribute to the content of the catalog (addition of lenses, fixing errors, 
 please fork this repository and create a new branch to work on. 
 Once you are satisfied with it, create a pull request [here](https://github.com/lenscat/lenscat/pulls).
 
+We have included a simple routine in the package, as `lenscat.utils.check_possible_duplicates()`, to generate a report of possible duplicates in a given catalog. Simply run
+```python
+import lenscat; from lenscat.utils import check_possible_duplicates
+
+check_possible_duplicates(lenscat.catalog)
+```
+with your modified catalog. In the pull request, please either show the output of this routine, or explicitly mention that you had run this routine and found no duplicates.
+
 ***Please remember to assign the label `catalog` to the pull request***. By doing so, once the pull request is merged to the main branch, 
 a [github action](https://github.com/lenscat/lenscat/blob/main/.github/workflows/changes-in-catalog.yml) will be triggered, where it will perform the following actions _automatically_:
 - advance the build version by one
