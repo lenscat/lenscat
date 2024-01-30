@@ -17,4 +17,4 @@ To contribute to the `python` codebase (new feature, bug fix, etc),
 please fork this repository and create a new branch to work on. 
 Once you are satisfied with it, create a pull request [here](https://github.com/lenscat/lenscat/pulls).
 
-If the code change is significant, please manually advance the version (major or minor version as you see fit) in [this file](https://github.com/lenscat/lenscat/blob/main/lenscat/_version.py). After the pull request is merged to the main branch, a github action will be triggered, and a new release will be published and uploaded to PyPI automatically.
+If the code change is significant, please manually advance the version (major or minor version as you see fit) in [this file](https://github.com/lenscat/lenscat/blob/main/lenscat/_version.py). After the pull request is merged to the main branch, the _approver of the pull request_ should create and publish a new release on github, and after that a [github action](https://github.com/lenscat/lenscat/blob/main/.github/workflows/python-publish.yml) will be triggered and the new version will be uploaded to PyPI automatically.
