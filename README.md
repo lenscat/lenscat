@@ -16,7 +16,9 @@ We also provide a _python package_ `lenscat`, available in pypi. Simply do
 ```bash
 pip install lenscat
 ```
-to install the latest version. The code converts the catalog in the csv file into a custom `Catalog` object that is inherited from the `Table` object in `astropy`. To access the catalog, simply run
+to install the latest version. Here we adopt the _continuous deployment_ paradigm (similar to [`astroquery`](https://github.com/astropy/astroquery)). Whenever there is a change in the catalog content, or a major change in the code, a new release will be available instantaneously on both [GitHub](https://github.com/lenscat/lenscat/releases) and [PyPI](https://pypi.org/project/lenscat/).
+
+The code converts the catalog in the csv file into a custom `Catalog` object that is inherited from the `Table` object in `astropy`. To access the catalog, simply run
 ```python
 In [1]: import lenscat; lenscat.catalog
 Out[1]:
