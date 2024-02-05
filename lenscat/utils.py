@@ -104,15 +104,16 @@ def plot_catalog(catalog, filename="catalog.png"):
 
     # Fiducial value for plotting
     _NSIDE = 32 
-    fig = plt.figure(dpi=300)
+    plt.figure(dpi=300)
     # Set up a blank canvas, rotated by 180 deg so that 0 is at the left margin
     hp.mollview(np.zeros(hp.nside2npix(_NSIDE)), rot=180, cbar=False, min=-1, max=5, bgcolor="none", cmap="PuRd")
     hp.projscatter(*convert_from_ICRS_to_healpy_convention(galaxy_lenses["RA"], galaxy_lenses["DEC"]), lonlat=False, color="lightskyblue", s=15, label="Galaxy", alpha = 0.95)
     hp.projscatter(*convert_from_ICRS_to_healpy_convention(cluster_lenses["RA"], cluster_lenses["DEC"]), lonlat=False, color="plum", s=15, label="Cluster", alpha = 0.95)
     hp.graticule(alpha=0.4, color="grey")
+    plt.title("") # Override default title
     plt.legend(labelcolor="black", facecolor="whitesmoke")
     if filename is None:
-        return fig
+        return plt.gcf()
     else:
         plt.savefig(filename, transparent=True)
 
