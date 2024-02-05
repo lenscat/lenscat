@@ -10,7 +10,7 @@ A public and community-contributed catalog of known strong gravitational lenses.
 
 ## Quickstart
 
-The catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv). An interactive web app is available [here](https://lenscat.streamlit.app/).
+The catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv). Alternatively, one can interact with the catalog using a [web app](https://lenscat.streamlit.app/) (mobile-friendly).
 
 We also provide a _python package_ `lenscat`, available in pypi. Simply do
 ```bash
@@ -145,3 +145,5 @@ This catalog contains the known strong lenses from the following studies:
 This project was supported by the research grant no. VIL37766 and no. VIL53101 from Villum Fonden, and the DNRF Chair program grant no. DNRF162 by the Danish National Research Foundation.
 
 This project has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 101131233.
+
+We would also like to thank Jonah Kanner for introducing us the amazing [streamlit](https://streamlit.io) service.
