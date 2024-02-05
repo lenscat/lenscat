@@ -10,7 +10,7 @@ A public and community-contributed catalog of known strong gravitational lenses.
 
 ## Quickstart
 
-The catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv). An interactive web app is available on [lenscat.streamlit.app](https://lenscat.streamlit.app/).
+The catalog is available as a _plain csv file_ under [lenscat/data/catalog.csv](https://github.com/lenscat/lenscat/blob/main/lenscat/data/catalog.csv). An interactive web app is available [here](https://lenscat.streamlit.app/).
 
 We also provide a _python package_ `lenscat`, available in pypi. Simply do
 ```bash
