@@ -146,4 +146,4 @@ This project was supported by the research grant no. VIL37766 and no. VIL53101 f
 
 This project has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 101131233.
 
-We would also like to thank Jonah Kanner for introducing us the amazing [streamlit](https://streamlit.io) service.
+We would also like to thank Jonah Kanner for introducing us the amazing [streamlit](https://streamlit.io) service that hosts the [web app](https://lenscat.streamlit.app/) for `lenscat`.
