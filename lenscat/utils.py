@@ -3,8 +3,11 @@ import copy
 import re
 import decimal
 import numpy as np
+from matplotlib import pyplot as plt
 import astropy.units as u
+from astropy.coordinates import SkyCoord
 import requests
+import ligo.skymap.plot
 
 def convert_to_astropy_unit(table):
     """
@@ -94,50 +97,47 @@ def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
     return np.pi/2 - np.deg2rad(DEC), np.deg2rad(RA)
 
-def plot_catalog(catalog, filename="catalog.png"):
-    import healpy as hp
-    from matplotlib import pyplot as plt
-
+def plot_catalog(catalog, RA_unit="deg", filename="catalog.png"):
     # Filter catalog by type
     galaxy_lenses = catalog.filter_by_type("galaxy")
     cluster_lenses = catalog.filter_by_type("cluster")
 
-    # Fiducial value for plotting
-    _NSIDE = 32 
-    plt.figure(dpi=300)
-    # Set up a blank canvas, rotated by 180 deg so that 0 is at the left margin
-    hp.mollview(
-        np.zeros(hp.nside2npix(_NSIDE)),
-        rot=180,
-        cbar=False,
-        min=-1,
-        max=5,
-        bgcolor="none",
-        cmap="Greys",
-    )
-    hp.projscatter(
-        *convert_from_ICRS_to_healpy_convention(galaxy_lenses["RA"], galaxy_lenses["DEC"]),
-        lonlat=False,
+    fig = plt.figure(dpi=300)
+    if RA_unit == "deg":
+        _projection = "astro degrees mollweide"
+    elif RA_unit == "hms":
+        _projection = "astro hours mollweide"
+    else:
+        raise ValueError(f"Does not understand {RA_unit}")
+    ax = plt.axes(projection=_projection)
+    ax.grid()
+    ax.scatter_coord(
+        SkyCoord(ra=galaxy_lenses["RA"], dec=galaxy_lenses["DEC"]),
         color="deepskyblue",
-        s=15,
+        s=5,
         label="Galaxy",
         alpha = 0.95
     )
-    hp.projscatter(
-        *convert_from_ICRS_to_healpy_convention(cluster_lenses["RA"], cluster_lenses["DEC"]),
-        lonlat=False,
+    ax.scatter_coord(
+        SkyCoord(ra=cluster_lenses["RA"], dec=cluster_lenses["DEC"]),
         color="violet",
-        s=15,
+        s=5,
         label="Cluster",
         alpha = 0.95
     )
-    hp.graticule(alpha=0.4, color="grey")
-    plt.title("") # Override default title
-    plt.legend(labelcolor="black", facecolor="whitesmoke")
+    ax.set_title("") # Override default title
+    ax.legend(
+        labelcolor="black",
+        facecolor="whitesmoke",
+        loc="lower center",
+        ncol=2,
+        bbox_to_anchor=(0.5, -0.2),
+    )
     if filename is None:
-        return plt.gcf()
+        return fig
     else:
-        plt.savefig(filename, transparent=True)
+        plt.tight_layout()
+        plt.savefig(filename)
 
 def get_precision(x):
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
