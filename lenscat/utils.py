@@ -97,7 +97,7 @@ def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
     return np.pi/2 - np.deg2rad(DEC), np.deg2rad(RA)
 
-def plot_catalog(catalog, RA_unit="deg", filename="catalog.png"):
+def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=False):
     # Filter catalog by type
     galaxy_lenses = catalog.filter_by_type("galaxy")
     cluster_lenses = catalog.filter_by_type("cluster")
@@ -133,11 +133,15 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png"):
         ncol=2,
         bbox_to_anchor=(0.5, -0.2),
     )
+
+    if dark_theme:
+        ax.tick_params(colors="white")
+
     if filename is None:
         return fig
     else:
         plt.tight_layout()
-        plt.savefig(filename)
+        plt.savefig(filename, transparent=dark_theme)
 
 def get_precision(x):
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
