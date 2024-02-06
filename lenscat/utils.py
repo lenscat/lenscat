@@ -111,27 +111,28 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
         raise ValueError(f"Does not understand {RA_unit}")
     ax = plt.axes(projection=_projection)
     ax.grid()
-    ax.scatter_coord(
-        SkyCoord(ra=galaxy_lenses["RA"], dec=galaxy_lenses["DEC"]),
-        color="deepskyblue",
-        s=5,
-        label="Galaxy",
-        alpha = 0.95
-    )
-    ax.scatter_coord(
-        SkyCoord(ra=cluster_lenses["RA"], dec=cluster_lenses["DEC"]),
-        color="violet",
-        s=5,
-        label="Cluster",
-        alpha = 0.95
-    )
+    if len(galaxy_lenses) > 0:
+        ax.scatter_coord(
+            SkyCoord(ra=galaxy_lenses["RA"], dec=galaxy_lenses["DEC"]),
+            color="deepskyblue",
+            s=5,
+            label="Galaxy",
+            alpha = 0.95
+        )
+    if len(cluster_lenses) > 0:
+        ax.scatter_coord(
+            SkyCoord(ra=cluster_lenses["RA"], dec=cluster_lenses["DEC"]),
+            color="violet",
+            s=5,
+            label="Cluster",
+            alpha = 0.95
+        )
     ax.set_title("") # Override default title
     ax.legend(
         labelcolor="black",
         facecolor="whitesmoke",
-        loc="lower center",
-        ncol=2,
-        bbox_to_anchor=(0.5, -0.2),
+        loc="upper right",
+        bbox_to_anchor=(1.3, 1.0),
     )
 
     if dark_theme:
@@ -141,7 +142,7 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
         return fig
     else:
         plt.tight_layout()
-        plt.savefig(filename, transparent=dark_theme)
+        plt.savefig(filename, transparent=dark_theme, bbox_inches="tight")
 
 def get_precision(x):
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
