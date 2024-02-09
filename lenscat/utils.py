@@ -6,8 +6,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 import astropy.units as u
 from astropy.coordinates import SkyCoord
+from astropy.table import Table
 import requests
 import ligo.skymap.plot
+from ligo.skymap.io import read_sky_map
 
 def convert_to_astropy_unit(table):
     """
@@ -83,6 +85,17 @@ def parse_skymap_str(skymap_str):
 
     # Exhausted all possible resolutions, give up
     raise ValueError(f"Does not recognize {skymap_str}")
+
+def parse_skymap(skymap):
+    if type(skymap) == Table:
+        _skymap = skymap
+    elif type(skymap) == str:
+        # Preserve multiorder if possible
+        _skymap = read_sky_map(parse_skymap_str(skymap), moc=True)
+    else:
+        raise ValueError(f"Does not support {skymap}")
+
+    return _skymap
 
 def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
