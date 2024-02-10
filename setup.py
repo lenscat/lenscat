@@ -27,7 +27,7 @@ setuptools.setup(
         ]
     },
     install_requires=[
-        "astropy",
+        "astropy >= 6.0.0",
         "ligo.skymap",
     ],
     classifiers=[

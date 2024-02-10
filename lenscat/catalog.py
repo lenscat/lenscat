@@ -4,10 +4,8 @@ import numpy as np
 import astropy.units as u
 from astropy.table import Table
 from astropy.coordinates import SkyCoord
-from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
-
-from .utils import convert_to_astropy_unit, parse_skymap_str
+from .utils import convert_to_astropy_unit, parse_skymap
 
 class Catalog(Table):
     _allowed_type = ["galaxy", "cluster"]
@@ -86,13 +84,7 @@ class Catalog(Table):
         return filtered_catalog
 
     def crossmatch(self, skymap):
-        if type(skymap) == Table:
-            _skymap = skymap
-        elif type(skymap) == str:
-            # Preserve multiorder if possible
-            _skymap = read_sky_map(parse_skymap_str(skymap), moc=True)
-        else:
-            raise ValueError(f"Does not support {skymap}")
+        _skymap = parse_skymap(skymap, moc=True)
     
         coordinates = SkyCoord(self["RA"], self["DEC"])
         result = ligoskymap_crossmatch(_skymap, coordinates)

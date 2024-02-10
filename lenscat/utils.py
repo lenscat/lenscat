@@ -3,11 +3,17 @@ import copy
 import re
 import decimal
 import numpy as np
+import matplotlib
 from matplotlib import pyplot as plt
+from matplotlib.colors import ListedColormap
 import astropy.units as u
 from astropy.coordinates import SkyCoord
+from astropy.table import Table
 import requests
 import ligo.skymap.plot
+from ligo.skymap.io import read_sky_map
+from ligo.skymap.postprocess.util import find_greedy_credible_levels
+import healpy as hp
 
 def convert_to_astropy_unit(table):
     """
@@ -80,9 +86,20 @@ def parse_skymap_str(skymap_str):
         url = gracedb_skymap_url_template.format(skymap_str, "bayestar")
         if requests.options(url).ok:
             return url
+    elif requests.options(skymap_str).ok:
+        return skymap_str
 
     # Exhausted all possible resolutions, give up
     raise ValueError(f"Does not recognize {skymap_str}")
+
+def parse_skymap(skymap, moc=False):
+    if type(skymap) == str:
+        # Preserve multiorder if possible
+        _skymap = read_sky_map(parse_skymap_str(skymap), moc=moc)
+    else:
+        raise ValueError(f"Does not understand {skymap}")
+
+    return _skymap
 
 def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
@@ -97,19 +114,53 @@ def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
     return np.pi/2 - np.deg2rad(DEC), np.deg2rad(RA)
 
-def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=False):
+def get_ra_dec_from_skymap(skymap):
+    """
+    Get the ra and dec of the maximum probability pixel in a skymap
+
+    Parameters
+    ----------
+    skymap : skymap
+
+    Returns
+    -------
+    ra : ra of the maximum probability pixel in degree
+    dec : dec of the maximum probability pixel in degree
+    """
+    index_of_max = np.argmax(skymap)
+    nside = hp.npix2nside(len(skymap))
+    theta, phi = hp.pix2ang(nside, index_of_max)
+    return np.rad2deg(phi), np.rad2deg(np.pi/2-theta)
+
+def make_transparent_colormap(colormap):
+    cmap = matplotlib.colormaps.get_cmap(colormap)
+    cmap_transparent = cmap(np.arange(cmap.N))
+    alphas = np.linspace(0, 1, cmap.N)
+    bkgrd = np.asarray([1., 1., 1.,])
+    for j in range(cmap.N):
+        cmap_transparent[j,:-1] = cmap_transparent[j,:-1]*alphas[j] + bkgrd*(1. - alphas[j])
+    cmap_transparent = ListedColormap(cmap_transparent)
+
+    return cmap_transparent
+
+def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=False, **axes_kwargs):
     # Filter catalog by type
     galaxy_lenses = catalog.filter_by_type("galaxy")
     cluster_lenses = catalog.filter_by_type("cluster")
 
-    fig = plt.figure(dpi=300)
     if RA_unit == "deg":
         _projection = "astro degrees mollweide"
     elif RA_unit == "hms":
         _projection = "astro hours mollweide"
     else:
         raise ValueError(f"Does not understand {RA_unit}")
-    ax = plt.axes(projection=_projection)
+    _kwargs = {
+        "projection": _projection
+    }
+    _kwargs.update(axes_kwargs)
+
+    fig = plt.figure(dpi=300)
+    ax = plt.axes(**_kwargs)
     ax.grid()
     if len(galaxy_lenses) > 0:
         ax.scatter_coord(
@@ -138,11 +189,107 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
     if dark_theme:
         ax.tick_params(colors="white")
 
-    if filename is None:
-        return fig
-    else:
-        plt.tight_layout()
+    plt.tight_layout()
+    if filename is not None:
         plt.savefig(filename, transparent=dark_theme, bbox_inches="tight")
+
+    return fig
+
+def plot_crossmatch(
+        skymap,
+        crossmatch_res,
+        searched_prob_threshold=1.0,
+        RA_unit="deg",
+        filename="crossmatch_result.png",
+        dark_theme=False
+):
+    # Check if there is "searched probability" in crossmatch_res
+    if "searched probability" not in crossmatch_res.colnames:
+        raise ValueError("No searched probability found in table")
+    if "searched area" not in crossmatch_res.colnames:
+        raise ValueError("No searched area found in table")
+
+    # Filter res by searched_prob_threshold
+    res = crossmatch_res[crossmatch_res["searched probability"] <= searched_prob_threshold]  
+    if len(res) == 0:
+        raise ValueError("No entries satisfy the searched probability threshold")
+
+    # Read skymap
+    _skymap = parse_skymap(skymap, moc=False)
+
+    # Estimate the zoom radius needed
+    # Maybe this is a sign that we should use mollewide projection instead
+    zoom_radius = 2*np.sqrt(res[-1]["searched area"]) # A fudge factor of 2
+    # Center the plot at the maxP estimate for ra and dec
+    ra_maxP, dec_maxP = get_ra_dec_from_skymap(_skymap[0])
+
+    # If the zoom radius is above 15, abort
+    if zoom_radius > 15:
+        # Use mollweide projection
+        fig = plot_catalog(
+            res,
+            RA_unit=RA_unit,
+            filename=None,
+            dark_theme=dark_theme,
+        )
+        ax = fig.gca()
+        ax.imshow_hpx(_skymap[0], cmap=make_transparent_colormap('cylon'))
+    else:
+        axes_kwargs = {
+            "center": '{}d {}d'.format(int(ra_maxP), int(dec_maxP)),
+            "radius": "{} deg".format(int(zoom_radius)),
+        }
+
+        if RA_unit == "deg":
+            axes_kwargs["projection"] = "astro degrees zoom"
+        elif RA_unit == "hms":
+            axes_kwargs["projection"] = "astro hours zoom"
+
+        fig = plot_catalog(
+            res,
+            filename=None,
+            dark_theme=dark_theme,
+            **axes_kwargs
+        )
+
+        ax = fig.gca()
+        label_color = 'w' if dark_theme else 'k'
+
+        # Plot skymap
+        ax.imshow_hpx(_skymap[0], cmap=make_transparent_colormap('cylon'))
+        # Plot credible level contours
+        contour = ax.contour_hpx(
+            (find_greedy_credible_levels(_skymap[0]), "ICRS"),
+            nested=False,
+            colors='grey',
+            linewidths=0.5,
+            zorder=2,
+            alpha=0.6,
+            levels=0.15*np.array([1, 2, 3, 4, 5, 6]),
+        )
+        ax.clabel(contour, inline=True, fontsize=6)
+
+        res.sort("DEC") # Sort by DEC
+        align_left_horizontally = 1
+        for row in res:
+            _alignment = "left" if align_left_horizontally == 1 else "right"
+            ax.text_coord(
+                SkyCoord(ra=row["RA"]*u.deg, dec=row["DEC"]*u.deg),
+                row["name"],
+                fontsize="small",
+                horizontalalignment=_alignment,
+                color='k',
+            )
+            align_left_horizontally *= -1
+
+        ax.set_xlabel("right ascension", color=label_color)
+        ax.set_ylabel("declination", color=label_color)
+
+    plt.tight_layout()
+    if filename is not None:
+        plt.savefig(filename, transparent=dark_theme, bbox_inches="tight")
+    
+    return fig
 
 def get_precision(x):
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
