@@ -84,7 +84,7 @@ class Catalog(Table):
         return filtered_catalog
 
     def crossmatch(self, skymap):
-        _skymap = parse_skymap(skymap)
+        _skymap = parse_skymap(skymap, moc=True)
     
         coordinates = SkyCoord(self["RA"], self["DEC"])
         result = ligoskymap_crossmatch(_skymap, coordinates)
