@@ -133,7 +133,7 @@ def get_ra_dec_from_skymap(skymap):
     return np.rad2deg(phi), np.rad2deg(np.pi/2-theta)
 
 def make_transparent_colormap(colormap):
-    cmap = matplotlib.colormaps.get_cmap(colormap)
+    cmap = plt.get_cmap(colormap)
     cmap_transparent = cmap(np.arange(cmap.N))
     alphas = np.linspace(0, 1, cmap.N)
     bkgrd = np.asarray([1., 1., 1.,])
