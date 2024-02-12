@@ -15,6 +15,8 @@ from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess.util import find_greedy_credible_levels
 import healpy as hp
 
+import lenscat
+
 def convert_to_astropy_unit(table: Table) -> None:
     """
     Convert columns in the given astropy table to the proper astropy unit if possible.
@@ -141,17 +143,30 @@ def get_ra_dec_from_skymap(skymap):
 
     Returns
     -------
-    ra : float
+    RA : float
         The right ascension (RA) of the maximum probability pixel in degrees.
-    dec : float
-        The declination (Dec) of the maximum probability pixel in degrees.
+    DEC : float
+        The declination (DEC) of the maximum probability pixel in degrees.
     """
     index_of_max = np.argmax(skymap)
     nside = hp.npix2nside(len(skymap))
     theta, phi = hp.pix2ang(nside, index_of_max)
     return np.rad2deg(phi), np.rad2deg(np.pi/2-theta)
 
-def make_transparent_colormap(colormap):
+def make_transparent_colormap(colormap: str) -> ListedColormap:
+    """
+    Produce a transparent colormap from the given colormap.
+
+    Parameters
+    ----------
+    colormap : str
+        The name of the colormap to be made transparent.
+
+    Returns
+    -------
+    ListedColormap
+        The transparent colormap.
+    """
     cmap = plt.get_cmap(colormap)
     cmap_transparent = cmap(np.arange(cmap.N))
     alphas = np.linspace(0, 1, cmap.N)
@@ -311,9 +326,47 @@ def plot_crossmatch(
     return fig
 
 def get_precision(x):
+    """
+    Get the precision of a number.
+
+    Parameters
+    ----------
+    x : float/int
+        The number to be checked.
+    
+    Returns
+    -------
+    float
+        The precision of the number.
+
+    Examples
+    --------
+    >>> get_precision(0.0001)
+    0.0001
+    >>> get_precision(1.001)
+    0.001
+    >>> get_precision(10)
+    1
+    >>> get_precision(1.0)
+    0.1
+    """
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
 
-def check_possible_duplicates(catalog):
+def check_possible_duplicates(catalog: lenscat.Catalog) -> None:
+    """
+    Check for possible duplicates in the given catalog.
+
+    Parameters
+    ----------
+    catalog : lenscat.catalog.Catalog
+        The catalog to be checked for possible duplicates.
+    
+    Notes
+    -----
+    - This function prints out a report listing all possible duplicates.
+    - A possible duplicate is defined as an entry in the catalog that has the same
+        RA and DEC as another entry in the catalog within measurement error/precision.
+    """
     # Make a report listing all possible duplicates
     num_duplicates = 0
 
