@@ -15,8 +15,6 @@ from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess.util import find_greedy_credible_levels
 import healpy as hp
 
-import lenscat
-
 def convert_to_astropy_unit(table: Table) -> None:
     """
     Convert columns in the given astropy table to the proper astropy unit if possible.
@@ -352,7 +350,7 @@ def get_precision(x):
     """
     return 10**(decimal.Decimal(str(x)).as_tuple().exponent)
 
-def check_possible_duplicates(catalog: lenscat.Catalog) -> None:
+def check_possible_duplicates(catalog):
     """
     Check for possible duplicates in the given catalog.
 
