@@ -15,22 +15,29 @@ from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess.util import find_greedy_credible_levels
 import healpy as hp
 
-def convert_to_astropy_unit(table):
+def convert_to_astropy_unit(table: Table) -> None:
     """
-    TODO: convert this to a proper docstring
+    Convert columns in the given astropy table to the proper astropy unit if possible.
 
-    Loop over the column names of the given table,
-    if a column name contains a pair of square bracket,
-    convert that column with the proper astropy unit if possible. 
-    After the conversion, the square bracket will be removed from the name.
-    Note that changes are made **in-place**.
+    Parameters
+    ----------
+    table : astropy.table.Table
+        The table containing the columns to be converted.
 
-    For example, suppose we have the following column names in a table:
+    Notes
+    -----
+    - This function modifies the input table in-place.
+    - Columns with names containing a pair of square brackets will be converted to the proper astropy unit.
+    - After the conversion, the square brackets will be removed from the column names.
+
+    Examples
+    --------
+    Suppose we have the following column names in a table:
     ["Name", "RA [deg]", "DEC [deg]"]
 
-    After invoking this function, the table will have the following column names
+    After invoking this function, the table will have the following column names:
     ["Name", "RA", "DEC"]
-    and the second and third columns will have a unit of deg
+    and the second and third columns will have a unit of deg.
     """
     _regex = r"\[([A-Za-z0-9_]+)\]"
     column_names = copy.deepcopy(table.columns)
@@ -103,29 +110,41 @@ def parse_skymap(skymap, moc=False):
 
 def convert_from_ICRS_to_healpy_convention(RA, DEC):
     """
-    TODO: convert this to a proper docstring
-
     Convert (RA, DEC) complying to the ICRS standard to
-    the healpy convention where \theta runs from 0 at the north
-    pole to \pi at the south pole, and $\phi$ runs from 0 to 2\pi
+    the healpy convention where theta runs from 0 at the north
+    pole to pi at the south pole, and phi runs from 0 to 2*pi
 
-    Input: RA, DEC
-    Output: theta, phi
+    Parameters
+    ----------
+    RA : float
+        Right Ascension in degrees.
+    DEC : float
+        Declination in degrees.
+
+    Returns
+    -------
+    theta : float
+        Polar angle in radians, ranging from 0 at the north pole to pi at the south pole.
+    phi : float
+        Azimuthal angle in radians, ranging from 0 to 2*pi.
     """
     return np.pi/2 - np.deg2rad(DEC), np.deg2rad(RA)
 
 def get_ra_dec_from_skymap(skymap):
     """
-    Get the ra and dec of the maximum probability pixel in a skymap
+    Get the RA and DEC of the pixel with the maximum probability in a skymap
 
     Parameters
     ----------
-    skymap : skymap
+    skymap : array_like
+        The skymap containing the probability values.
 
     Returns
     -------
-    ra : ra of the maximum probability pixel in degree
-    dec : dec of the maximum probability pixel in degree
+    ra : float
+        The right ascension (RA) of the maximum probability pixel in degrees.
+    dec : float
+        The declination (Dec) of the maximum probability pixel in degrees.
     """
     index_of_max = np.argmax(skymap)
     nside = hp.npix2nside(len(skymap))
