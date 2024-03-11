@@ -69,22 +69,36 @@ Out[1]:
 ```
 
 ### Crossmatching with a skymap
-This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW190814 (download from [here](https://gracedb.ligo.org/apiweb/superevents/S190814bv/files/GW190814_PublicationSamples.multiorder.fits)) with only the confirmed lenses in the `lenscat` catalog, simply run
+This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW170814 (download from [here](https://dcc.ligo.org/public/0157/P1800381/007/GW170814_skymap.fits.gz)) with only the confirmed lenses in the `lenscat` catalog, simply run
 ```python
-In [1]: import lenscat; lenscat.catalog.search(grading="confirmed").crossmatch("GW190814_PublicationSamples.multiorder.fits")
-Out[1]:
-<Catalog length=761>
-       name             RA         DEC       zlens     type   grading  searched probability   searched area
-                       deg         deg                                                             deg2
-      str20          float64     float64     str15     str7     str9         float64             float64
------------------- ----------- ------------ -------- ------- --------- -------------------- ------------------
-  MACSJ0035.4-2015        8.85 -20.27083333    0.352 cluster confirmed   0.9881400284668479  46.21360633943737
-          0047-281 12.42458333 -27.87380556    0.484  galaxy confirmed   0.9899384024067811  48.32495441567177
-             A2813     10.8625 -20.61694444   0.2924 cluster confirmed   0.9924501903529119  51.82638259178721
-     DESJ0145-3541    26.44493    -35.69093     0.49  galaxy confirmed   0.9998766459538251  82.04095381939021
-     DESJ0138-2844    24.59567    -28.73555     0.44  galaxy confirmed   0.9999999999999968 151.91214978321142
-     DESJ0130-3744    22.51201    -37.74938     0.68  galaxy confirmed   0.9999999999999968  173.7862404115262
-AGEL 014253-183116 10.72041667 -18.52105556  0.63627  galaxy confirmed   0.9999999999999968 187.58212970468517
+In [1]: import lenscat; lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
+Out[1]: 
+<Catalog length=3818>
+     name          RA        DEC    zlens   type   grading  searched probability   searched area   
+                  deg        deg                                                        deg2       
+    str20       float64    float64  str15   str7     str9         float64             float64      
+-------------- ---------- --------- ------ ------ --------- -------------------- ------------------
+ DESJ0303-4626    45.9507 -46.44066   1.37 galaxy  probable  0.11857081625736535   2.59328622407046
+ DESJ0311-4232   47.86322 -42.53863   0.37 galaxy  probable   0.2301796464718608  5.619333233953008
+ DESJ0310-4647   47.63526 -46.78398   0.71 galaxy  probable  0.36778302134840013 10.261676209026643
+ DESJ0301-4426    45.4638 -44.44055   0.76 galaxy  probable   0.4683381098641989 14.661410864782189
+ DESJ0304-4921   46.06729 -49.35725   0.34 galaxy confirmed   0.6465740359340766 26.791826830724982
+ DESJ0300-5001   45.09019 -50.02469   0.53 galaxy confirmed   0.7082286031333002 33.860252998986475
+```
+The cross-matching can be done to the sky localization from any type of transients as long as it is in the FITS format. For example, to cross-match the localization of GRB 240229A (download from [here](https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/2024/bn240229588/quicklook/glg_healpix_all_bn240229588.fit)), simply run
+```python
+In [1]: import lenscat; lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
+Out[1]: 
+<Catalog length=4587>
+       name             RA          DEC     zlens    type   grading  searched probability   searched area   
+                       deg          deg                                                          deg2       
+      str20          float64      float64   str15    str7     str9         float64             float64      
+------------------ ------------ ----------- ------ ------- --------- -------------------- ------------------
+   SDSSJ1320+1644*    200.24778    16.73437  0.899  galaxy confirmed   0.1614180609749184 6.9241725729921235
+    SDSSJ1330+1750    202.63079    17.84456 0.2074  galaxy confirmed   0.6132034472687292  44.48256319619201
+    SDSSJ1304+2001    196.18166    20.01805   0.4?  galaxy confirmed   0.6545106150094973  51.40673576918417
+    SDSSJ1330+1810    202.57772    18.17581  0.373  galaxy confirmed   0.6730233044611307  54.97373376133156
+    SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confirmed   0.6890963497394108  58.33090834217615
 ```
 
 ## Format
