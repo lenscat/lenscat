@@ -20,8 +20,10 @@ to install the latest version. Here we adopt the _continuous deployment_ paradig
 
 The code converts the catalog in the csv file into a custom `Catalog` object that is inherited from the `Table` object in `astropy`. To access the catalog, simply run
 ```python
-In [1]: import lenscat; lenscat.catalog
-Out[1]:
+import lenscat; lenscat.catalog
+```
+and this will show a formatted table to the output. For example,
+```
 <Catalog length=4587>
      name         RA       DEC     zlens     type   grading
                  deg       deg
@@ -56,8 +58,11 @@ This feature is implemented as `.search()`. One can search/filter by any combina
 
 For example, to get a list of the cluster-scale lenses which are confirmed and with a redshift $z_{\mathrm{lens}} \geq 1$ together with the reference, run
 ```python
-In [1]: import lenscat, numpy; lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
-Out[1]:
+import lenscat, numpy
+lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
+```
+The output would be something like
+```
 <Catalog length=3>
      name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
@@ -71,8 +76,11 @@ Out[1]:
 ### Crossmatching with a skymap
 This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW170814 (download from [here](https://dcc.ligo.org/public/0157/P1800381/007/GW170814_skymap.fits.gz)) with only the confirmed lenses in the `lenscat` catalog, simply run
 ```python
-In [1]: import lenscat; lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
-Out[1]: 
+import lenscat
+lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
+```
+Running this will give
+```
 <Catalog length=3818>
      name          RA        DEC    zlens   type   grading  searched probability   searched area   
                   deg        deg                                                        deg2       
@@ -87,8 +95,11 @@ Out[1]:
 ```
 The cross-matching can be done to the sky localization from any type of transients as long as it is in the FITS format. For example, to cross-match the localization of GRB 240229A (download from [here](https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/2024/bn240229588/quicklook/glg_healpix_all_bn240229588.fit)), simply run
 ```python
-In [1]: import lenscat; lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
-Out[1]: 
+import lenscat
+lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
+```
+In this case, the output would be
+```
 <Catalog length=4587>
        name             RA          DEC     zlens    type   grading  searched probability   searched area   
                        deg          deg                                                          deg2       
@@ -103,8 +114,10 @@ Out[1]:
 
 To generate a visualization of a crossmatching result, simply invoke `.plot()` to a crossmatching result. For example,
 ```python
-In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").plot(searched_prob_threshold=0.7)
+import lenscat
+lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").plot(searched_prob_threshold=0.7)
 ```
+will generate a figure like this
 ![image](https://github.com/lenscat/lenscat/assets/55488840/12d398e4-6f58-40e5-8cea-edc6bf19d701)
 
 
