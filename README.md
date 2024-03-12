@@ -20,8 +20,10 @@ to install the latest version. Here we adopt the _continuous deployment_ paradig
 
 The code converts the catalog in the csv file into a custom `Catalog` object that is inherited from the `Table` object in `astropy`. To access the catalog, simply run
 ```python
-In [1]: import lenscat; lenscat.catalog
-Out[1]:
+import lenscat; lenscat.catalog
+```
+and this will show a formatted table to the output. For example,
+```
 <Catalog length=4587>
      name         RA       DEC     zlens     type   grading
                  deg       deg
@@ -56,8 +58,11 @@ This feature is implemented as `.search()`. One can search/filter by any combina
 
 For example, to get a list of the cluster-scale lenses which are confirmed and with a redshift $z_{\mathrm{lens}} \geq 1$ together with the reference, run
 ```python
-In [1]: import lenscat, numpy; lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
-Out[1]:
+import lenscat, numpy
+lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
+```
+The output would be something like
+```
 <Catalog length=3>
      name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
@@ -71,8 +76,11 @@ Out[1]:
 ### Crossmatching with a skymap
 This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW170814 (download from [here](https://dcc.ligo.org/public/0157/P1800381/007/GW170814_skymap.fits.gz)) with only the confirmed lenses in the `lenscat` catalog, simply run
 ```python
-In [1]: import lenscat; lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
-Out[1]: 
+import lenscat
+lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
+```
+Running this will give
+```
 <Catalog length=3818>
      name          RA        DEC    zlens   type   grading  searched probability   searched area   
                   deg        deg                                                        deg2       
@@ -87,8 +95,11 @@ Out[1]:
 ```
 The cross-matching can be done to the sky localization from any type of transients as long as it is in the FITS format. For example, to cross-match the localization of GRB 240229A (download from [here](https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/2024/bn240229588/quicklook/glg_healpix_all_bn240229588.fit)), simply run
 ```python
-In [1]: import lenscat; lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
-Out[1]: 
+import lenscat
+lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
+```
+In this case, the output would be
+```
 <Catalog length=4587>
        name             RA          DEC     zlens    type   grading  searched probability   searched area   
                        deg          deg                                                          deg2       
@@ -101,56 +112,80 @@ Out[1]:
     SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confirmed   0.6890963497394108  58.33090834217615
 ```
 
+To generate a visualization of a crossmatching result, simply invoke `.plot()` to a crossmatching result. For example,
+```python
+import lenscat
+lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").plot(searched_prob_threshold=0.7)
+```
+will generate a figure like this
+![image](https://github.com/lenscat/lenscat/assets/55488840/12d398e4-6f58-40e5-8cea-edc6bf19d701)
+
+
 ## Format
 
-['name'] = Names of galaxies/galaxy clusters \
-['RA [deg]'] = RA in dergees \
-['DEC [deg]'] = DEC in degrees \
-['zlens'] = Lens redshift (if known) \
-['type'] = Type of lens (i.e. galaxy or galaxy cluster) \
-['grading'] = Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems) \
-['ref'] = Reference to the corresponding catalog or study
+<table width="300">
+  <tr>
+    <th width="20%">Column name</th>
+    <th width="80%">Description</th>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>Names of galaxies/galaxy clusters</td>
+  </tr>
+  <tr>
+    <td><code>RA [deg]</code></td>
+    <td>Right ascension in dergees</td>
+  </tr>
+  <tr>
+     <td><code>DEC [deg]</code></td>
+     <td>Declination in degress</td>
+  </tr>
+  <tr>
+     <td><code>zlens</code></td>
+     <td>Lens redshift (if known)</td>
+  </tr>
+  <tr>
+     <td><code>type</code></td>
+     <td>Type of lens (i.e. galaxy or galaxy cluster)</td>
+  </tr>
+  <tr>
+     <td><code>grading</code></td>
+     <td>Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems)</td>
+  </tr>
+  <tr>
+     <td><code>ref</code></td>
+     <td>Reference to the corresponding catalog or study</td>
+  </tr>
+</table>
 
 ## References
 
 This catalog contains the known strong lenses from the following studies:
 
-  - GLQ Database:
-    https://research.ast.cam.ac.uk/lensedquasars/index.html
+  - [GLQ Database](https://research.ast.cam.ac.uk/lensedquasars/index.html)
 
-  - CLASH (Postman+2012):
-    https://archive.stsci.edu/prepds/clash/
+  - [CLASH (Postman+2012)](https://archive.stsci.edu/prepds/clash/)
 
-  - MUSES Cluster Followups (Richards+2020):
-    https://cral-perso.univ-lyon1.fr/labo/perso/johan.richard/MUSE_data_release/
+  - [MUSES Cluster Followups (Richards+2020)](https://cral-perso.univ-lyon1.fr/labo/perso/johan.richard/MUSE_data_release/)
 
-  - RELICS
-    https://relics.stsci.edu/clusters.html
+  - [RELICS](https://relics.stsci.edu/clusters.html)
 
-  - 37 Clusters from SDSS Giant Arcs Survey
-    https://iopscience.iop.org/article/10.3847/1538-4365/ab5f13
+  - [37 Clusters from SDSS Giant Arcs Survey](https://iopscience.iop.org/article/10.3847/1538-4365/ab5f13)
 
-  - An Extended Catalog of Galaxy–Galaxy Strong Gravitational Lenses Discovered in DES Using Convolutional Neural Networks
-    https://iopscience.iop.org/article/10.3847/1538-4365/ab26b6#apjsab26b6t5
+  - [An Extended Catalog of Galaxy–Galaxy Strong Gravitational Lenses Discovered in DES Using Convolutional Neural Networks](https://iopscience.iop.org/article/10.3847/1538-4365/ab26b6#apjsab26b6t5)
 
-  - The AGEL Survey: Spectroscopic Confirmation of Strong Gravitational Lenses in the DES
-    and DECaLS Fields Selected Using Convolutional Neural Networks
-    https://arxiv.org/ftp/arxiv/papers/2205/2205.05307.pdf
+  - [The AGEL Survey: Spectroscopic Confirmation of Strong Gravitational Lenses in the DES
+    and DECaLS Fields Selected Using Convolutional Neural Networks](https://arxiv.org/ftp/arxiv/papers/2205/2205.05307.pdf)
 
-  - LSD Survey
-    https://web.physics.ucsb.edu/~tt/LSD/
+  - [LSD Survey](https://web.physics.ucsb.edu/~tt/LSD/)
 
-  - (COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses
-    https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract
+  - [(COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract)
 
-  - SLACS. XIII. Galaxy-scale strong lens candidates
-    https://ui.adsabs.harvard.edu/abs/2019yCat..18510048S/abstract
+  - [SLACS. XIII. Galaxy-scale strong lens candidates](https://ui.adsabs.harvard.edu/abs/2019yCat..18510048S/abstract)
 
-  - RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data
-    https://iopscience.iop.org/article/10.1088/0004-637X/785/2/144
+  - [RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data](https://iopscience.iop.org/article/10.1088/0004-637X/785/2/1440)
 
-  - Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List
-    https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/
+  - [Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List](https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/)
 
 ## See also
 [Master Lens Database](https://test.masterlens.org/index.php)
