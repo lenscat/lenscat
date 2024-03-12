@@ -44,7 +44,7 @@ Out[1]:
 ```
 Note that the code will try to assign the unit for each of the columns inferred from its name, and that it will hide the 'ref' column *by default*. One can show or hide the 'ref' column by calling `.show_ref()` and `.hide_ref()` on the `Catalog` object respectively.
 
-Every `Catalog` object supports two features: basic searching with `.search()` and crossmatching with a skymap with `.crossmatch()`. Note that these function will return a `Catalog` object, and hence *they can be composed together* (e.g., `.crossmatch().search()`).
+Every `Catalog` object supports three features: basic searching with `.search()`, crossmatching with a skymap with `.crossmatch()`, and visualizing with `.plot()`. Note that these function will return a `Catalog` object, and hence *they can be composed together* (e.g., `.crossmatch().search()`).
 
 ### Basic searching
 This feature is implemented as `.search()`. One can search/filter by any combination of
