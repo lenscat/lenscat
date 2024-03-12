@@ -110,13 +110,15 @@ In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").pl
 
 ## Format
 
-['name'] = Names of galaxies/galaxy clusters \
-['RA [deg]'] = RA in dergees \
-['DEC [deg]'] = DEC in degrees \
-['zlens'] = Lens redshift (if known) \
-['type'] = Type of lens (i.e. galaxy or galaxy cluster) \
-['grading'] = Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems) \
-['ref'] = Reference to the corresponding catalog or study
+| Column name | Description |
+| -------- | -------- |
+| `name` | Names of galaxies/galaxy clusters |
+| `RA [deg]` | Right ascension in dergees |
+| `DEC [deg]`| Declination in degress |
+| `zlens` | Lens redshift (if known) |
+| `type` | Type of lens (i.e. galaxy or galaxy cluster) |
+| `grading` | Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems) |
+| `ref` | Reference to the corresponding catalog or study |
 
 ## References
 
