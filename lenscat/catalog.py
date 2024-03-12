@@ -110,7 +110,6 @@ class Catalog(_Catalog):
             result.searched_prob,
             name="searched probability"
         )
-    
         crossmatch_result.add_column(
             result.searched_area,
             name="searched area"
@@ -120,5 +119,10 @@ class Catalog(_Catalog):
 
         # Sort by searched prob, then by seared area
         crossmatch_result.sort(["searched probability", "searched area"])
+
+        # Regularize searched probability
+        for idx in range(len(crossmatch_result)):
+            if crossmatch_result[idx]["searched probability"] > 1.0:
+                crossmatch_result[idx]["searched probability"] = 1.0
 
         return crossmatch_result
