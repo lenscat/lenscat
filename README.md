@@ -110,15 +110,40 @@ In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").pl
 
 ## Format
 
-| Column name | Description |
-| ---------------- | -------- |
-| `name` | Names of galaxies/galaxy clusters |
-| <span style="white-space:nowrap;">`RA [deg]`</span> | Right ascension in dergees |
-| `DEC [deg]`| Declination in degress |
-| `zlens` | Lens redshift (if known) |
-| `type` | Type of lens (i.e. galaxy or galaxy cluster) |
-| `grading` | Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems) |
-| `ref` | Reference to the corresponding catalog or study |
+<table>
+  <tr>
+    <th>Column name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>Names of galaxies/galaxy clusters</td>
+  </tr>
+  <tr>
+    <td><code>RA [deg]</code></td>
+    <td>Right ascension in dergees</td>
+  </tr>
+  <tr>
+     <td><code>DEC [deg]</code></td>
+     <td>Declination in degress</td>
+  </tr>
+  <tr>
+     <td><code>zlens</code></td>
+     <td>Lens redshift (if known)</td>
+  </tr>
+  <tr>
+     <td><code>type</code></td>
+     <td>Type of lens (i.e. galaxy or galaxy cluster)</td>
+  </tr>
+  <tr>
+     <td><code>grading</code></td>
+     <td>Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems)</td>
+  </tr>
+  <tr>
+     <td><code>ref</code></td>
+     <td>Reference to the corresponding catalog or study</td>
+  </tr>
+</table>
 
 ## References
 
