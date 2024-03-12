@@ -110,10 +110,10 @@ In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").pl
 
 ## Format
 
-<table>
+<table width="300">
   <tr>
-    <th>Column name</th>
-    <th>Description</th>
+    <th width="20%">Column name</th>
+    <th width="80%">Description</th>
   </tr>
   <tr>
     <td><code>name</code></td>
