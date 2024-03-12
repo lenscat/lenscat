@@ -110,7 +110,7 @@ In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").pl
 
 ## Format
 
-| Column name | Description |
+| Column name &nbsp; &nbsp; &nbsp; | Description |
 | -------- | -------- |
 | `name` | Names of galaxies/galaxy clusters |
 | `RA [deg]` | Right ascension in dergees |
