@@ -19,16 +19,16 @@ class Catalog(Table):
     def hide_ref(self):
         try:
             self.pprint_exclude_names.add("ref")
-            return self
         except:
             pass # Fail silently
+        return self
 
     def show_ref(self):
         try:
             self.pprint_exclude_names.remove("ref")
-            return self
         except:
             pass # Fail silently
+        return self
 
     def filter_by_RA(self, RA_min=0.0, RA_max=360.0):
         assert RA_min < RA_max, "RA_max must be greater than RA_min"
