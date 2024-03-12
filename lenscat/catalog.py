@@ -8,7 +8,7 @@ from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
 from .utils import convert_to_astropy_unit, parse_skymap
 from .utils import plot_catalog, plot_crossmatch
 
-class Catalog(Table):
+class _Catalog(Table):
     _allowed_type = ["galaxy", "cluster"]
     _allowed_grading = ["confirmed", "probable"]
 
@@ -87,12 +87,25 @@ class Catalog(Table):
     def plot(self, **kwargs):
         return plot_catalog(self, **kwargs)
 
+class CrossmatchResult(_Catalog):
+    def __init__(self, *args, **kwargs):
+        self.skymap = kwargs.pop("skymap", None)
+        super().__init__(*args, **kwargs)
+
+    def plot(self, **kwargs):
+        return plot_crossmatch(
+            self.skymap,
+            self,
+            **kwargs
+        )
+
+class Catalog(_Catalog):
     def crossmatch(self, skymap):
         _skymap = parse_skymap(skymap, moc=True)
     
         coordinates = SkyCoord(self["RA"], self["DEC"])
         result = ligoskymap_crossmatch(_skymap, coordinates)
-        table_with_result = copy.copy(self)
+        table_with_result = CrossmatchResult(self.columns[:], skymap=skymap)
         table_with_result.add_column(
             result.searched_prob,
             name="searched probability"

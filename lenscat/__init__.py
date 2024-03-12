@@ -1,7 +1,7 @@
 import os
 import pathlib
 from astropy.table import Table
-from .catalog import Catalog
+from .catalog import Catalog, CrossmatchResult
 
 # The relative path to the actual catalog in csv format
 _catalog_path = "data/catalog.csv"
