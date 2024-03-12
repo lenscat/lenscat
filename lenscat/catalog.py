@@ -6,8 +6,9 @@ from astropy.table import Table
 from astropy.coordinates import SkyCoord
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
 from .utils import convert_to_astropy_unit, parse_skymap
+from .utils import plot_catalog, plot_crossmatch
 
-class Catalog(Table):
+class _Catalog(Table):
     _allowed_type = ["galaxy", "cluster"]
     _allowed_grading = ["confirmed", "probable"]
 
@@ -19,16 +20,16 @@ class Catalog(Table):
     def hide_ref(self):
         try:
             self.pprint_exclude_names.add("ref")
-            return self
         except:
             pass # Fail silently
+        return self
 
     def show_ref(self):
         try:
             self.pprint_exclude_names.remove("ref")
-            return self
         except:
             pass # Fail silently
+        return self
 
     def filter_by_RA(self, RA_min=0.0, RA_max=360.0):
         assert RA_min < RA_max, "RA_max must be greater than RA_min"
@@ -83,24 +84,45 @@ class Catalog(Table):
 
         return filtered_catalog
 
+    def plot(self, **kwargs):
+        return plot_catalog(self, **kwargs)
+
+class CrossmatchResult(_Catalog):
+    def __init__(self, *args, **kwargs):
+        self.skymap = kwargs.pop("skymap", None)
+        super().__init__(*args, **kwargs)
+
+    def plot(self, **kwargs):
+        return plot_crossmatch(
+            self.skymap,
+            self,
+            **kwargs
+        )
+
+class Catalog(_Catalog):
     def crossmatch(self, skymap):
         _skymap = parse_skymap(skymap, moc=True)
     
         coordinates = SkyCoord(self["RA"], self["DEC"])
         result = ligoskymap_crossmatch(_skymap, coordinates)
-        table_with_result = copy.copy(self)
-        table_with_result.add_column(
+        crossmatch_result = CrossmatchResult(self.columns[:], skymap=skymap)
+        crossmatch_result.add_column(
             result.searched_prob,
             name="searched probability"
         )
-        table_with_result.add_column(
+        crossmatch_result.add_column(
             result.searched_area,
             name="searched area"
         )
         # Searched areas are in sqdeg
-        table_with_result["searched area"].unit = u.deg**2
+        crossmatch_result["searched area"].unit = u.deg**2
 
         # Sort by searched prob, then by seared area
-        table_with_result.sort(["searched probability", "searched area"])
+        crossmatch_result.sort(["searched probability", "searched area"])
 
-        return table_with_result
+        # Regularize searched probability
+        for idx in range(len(crossmatch_result)):
+            if crossmatch_result[idx]["searched probability"] > 1.0:
+                crossmatch_result[idx]["searched probability"] = 1.0
+
+        return crossmatch_result
