@@ -105,19 +105,20 @@ class Catalog(_Catalog):
     
         coordinates = SkyCoord(self["RA"], self["DEC"])
         result = ligoskymap_crossmatch(_skymap, coordinates)
-        table_with_result = CrossmatchResult(self.columns[:], skymap=skymap)
-        table_with_result.add_column(
+        crossmatch_result = CrossmatchResult(self.columns[:], skymap=skymap)
+        crossmatch_result.add_column(
             result.searched_prob,
             name="searched probability"
         )
-        table_with_result.add_column(
+    
+        crossmatch_result.add_column(
             result.searched_area,
             name="searched area"
         )
         # Searched areas are in sqdeg
-        table_with_result["searched area"].unit = u.deg**2
+        crossmatch_result["searched area"].unit = u.deg**2
 
         # Sort by searched prob, then by seared area
-        table_with_result.sort(["searched probability", "searched area"])
+        crossmatch_result.sort(["searched probability", "searched area"])
 
-        return table_with_result
+        return crossmatch_result
