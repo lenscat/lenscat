@@ -6,6 +6,7 @@ from astropy.table import Table
 from astropy.coordinates import SkyCoord
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
 from .utils import convert_to_astropy_unit, parse_skymap
+from .utils import plot_catalog, plot_crossmatch
 
 class Catalog(Table):
     _allowed_type = ["galaxy", "cluster"]
@@ -82,6 +83,9 @@ class Catalog(Table):
             filtered_catalog = filtered_catalog.filter_by_zlens(*zlens_range)
 
         return filtered_catalog
+
+    def plot(self, **kwargs):
+        return plot_catalog(self, **kwargs)
 
     def crossmatch(self, skymap):
         _skymap = parse_skymap(skymap, moc=True)
