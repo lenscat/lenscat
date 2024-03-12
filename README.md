@@ -101,6 +101,13 @@ Out[1]:
     SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confirmed   0.6890963497394108  58.33090834217615
 ```
 
+To generate a visualization of a crossmatching result, simply invoke `.plot()` to a crossmatching result. For example,
+```python
+In [1]: import lenscat; lenscat.catalog.crossmatch("GW170814_skymap.fits.gz").plot(searched_prob_threshold=0.7)
+```
+![image](https://github.com/lenscat/lenscat/assets/55488840/12d398e4-6f58-40e5-8cea-edc6bf19d701)
+
+
 ## Format
 
 ['name'] = Names of galaxies/galaxy clusters \
@@ -115,42 +122,30 @@ Out[1]:
 
 This catalog contains the known strong lenses from the following studies:
 
-  - GLQ Database:
-    https://research.ast.cam.ac.uk/lensedquasars/index.html
+  - [GLQ Database](https://research.ast.cam.ac.uk/lensedquasars/index.html)
 
-  - CLASH (Postman+2012):
-    https://archive.stsci.edu/prepds/clash/
+  - [CLASH (Postman+2012)](https://archive.stsci.edu/prepds/clash/)
 
-  - MUSES Cluster Followups (Richards+2020):
-    https://cral-perso.univ-lyon1.fr/labo/perso/johan.richard/MUSE_data_release/
+  - [MUSES Cluster Followups (Richards+2020)](https://cral-perso.univ-lyon1.fr/labo/perso/johan.richard/MUSE_data_release/)
 
-  - RELICS
-    https://relics.stsci.edu/clusters.html
+  - [RELICS](https://relics.stsci.edu/clusters.html)
 
-  - 37 Clusters from SDSS Giant Arcs Survey
-    https://iopscience.iop.org/article/10.3847/1538-4365/ab5f13
+  - [37 Clusters from SDSS Giant Arcs Survey](https://iopscience.iop.org/article/10.3847/1538-4365/ab5f13)
 
-  - An Extended Catalog of Galaxy–Galaxy Strong Gravitational Lenses Discovered in DES Using Convolutional Neural Networks
-    https://iopscience.iop.org/article/10.3847/1538-4365/ab26b6#apjsab26b6t5
+  - [An Extended Catalog of Galaxy–Galaxy Strong Gravitational Lenses Discovered in DES Using Convolutional Neural Networks](https://iopscience.iop.org/article/10.3847/1538-4365/ab26b6#apjsab26b6t5)
 
-  - The AGEL Survey: Spectroscopic Confirmation of Strong Gravitational Lenses in the DES
-    and DECaLS Fields Selected Using Convolutional Neural Networks
-    https://arxiv.org/ftp/arxiv/papers/2205/2205.05307.pdf
+  - [The AGEL Survey: Spectroscopic Confirmation of Strong Gravitational Lenses in the DES
+    and DECaLS Fields Selected Using Convolutional Neural Networks](https://arxiv.org/ftp/arxiv/papers/2205/2205.05307.pdf)
 
-  - LSD Survey
-    https://web.physics.ucsb.edu/~tt/LSD/
+  - [LSD Survey](https://web.physics.ucsb.edu/~tt/LSD/)
 
-  - (COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses
-    https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract
+  - [(COSMOS) LensFlow: A Convolutional Neural Network in Search of Strong Gravitational Lenses](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...68P/abstract)
 
-  - SLACS. XIII. Galaxy-scale strong lens candidates
-    https://ui.adsabs.harvard.edu/abs/2019yCat..18510048S/abstract
+  - [SLACS. XIII. Galaxy-scale strong lens candidates](https://ui.adsabs.harvard.edu/abs/2019yCat..18510048S/abstract)
 
-  - RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data
-    https://iopscience.iop.org/article/10.1088/0004-637X/785/2/144
+  - [RINGFINDER: Automated Detection of Galaxy-scale Gravitational Lenses in Ground-based Multi-filter Imaging Data](https://iopscience.iop.org/article/10.1088/0004-637X/785/2/1440)
 
-  - Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List
-    https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/
+  - [Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List](https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/)
 
 ## See also
 [Master Lens Database](https://test.masterlens.org/index.php)
