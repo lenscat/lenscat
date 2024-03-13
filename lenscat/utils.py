@@ -95,6 +95,8 @@ def parse_skymap_str(skymap_str):
             return url
     elif requests.options(skymap_str).ok:
         return skymap_str
+    elif skymap_str.startswith("http"):
+        return skymap_str # Try anyway
 
     # Exhausted all possible resolutions, give up
     raise ValueError(f"Does not recognize {skymap_str}")
