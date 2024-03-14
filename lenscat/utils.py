@@ -173,6 +173,9 @@ def make_transparent_colormap(colormap: str) -> ListedColormap:
     bkgrd = np.asarray([1., 1., 1.,])
     for j in range(cmap.N):
         cmap_transparent[j,:-1] = cmap_transparent[j,:-1]*alphas[j] + bkgrd*(1. - alphas[j])
+    # Mess with the alpha levels for the first 20% of the colors
+    _idxs = np.arange(0, int(0.2*cmap.N), 1)
+    cmap_transparent[_idxs,-1] = np.linspace(0, 1, len(_idxs))
     cmap_transparent = ListedColormap(cmap_transparent)
 
     return cmap_transparent
@@ -312,7 +315,7 @@ def plot_crossmatch(
                 row["name"],
                 fontsize="small",
                 horizontalalignment=_alignment,
-                color='k',
+                color=label_color,
             )
             align_left_horizontally *= -1
 
