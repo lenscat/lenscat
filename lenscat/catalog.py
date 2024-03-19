@@ -2,7 +2,7 @@ import copy
 import re
 import numpy as np
 import astropy.units as u
-from astropy.table import Table
+from astropy.table import Table, TableAttribute
 from astropy.coordinates import SkyCoord
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
 from .utils import convert_to_astropy_unit, parse_skymap
@@ -88,9 +88,7 @@ class _Catalog(Table):
         return plot_catalog(self, **kwargs)
 
 class CrossmatchResult(_Catalog):
-    def __init__(self, *args, **kwargs):
-        self.skymap = kwargs.pop("skymap", None)
-        super().__init__(*args, **kwargs)
+    skymap = TableAttribute(default=None)
 
     def plot(self, **kwargs):
         return plot_crossmatch(
