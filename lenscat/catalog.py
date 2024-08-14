@@ -33,14 +33,17 @@ class _Catalog(Table):
 
     def filter_by_RA(self, RA_min=0.0, RA_max=360.0):
         assert RA_min < RA_max, "RA_max must be greater than RA_min"
+        assert RA_min >= 0.0 and RA_max <= 360.0, "RA must be between 0 and 360"
         return self[(self["RA"] >= RA_min) & (self["RA"] <= RA_max)]
 
     def filter_by_DEC(self, DEC_min=-90, DEC_max=90):
         assert DEC_min < DEC_max, "DEC_max must be greater than DEC_min"
+        assert DEC_min >= -90.0 and DEC_max <= 90.0, "DEC must be between -90 and 90"
         return self[(self["DEC"] >= DEC_min) & (self["DEC"] <= DEC_max)]
 
     def filter_by_zlens(self, zlens_min=0.0, zlens_max=np.inf):
         assert zlens_min < zlens_max, "zlens_max must be greater than zlens_min"
+        assert zlens_min >= 0.0, "zlens_min must be greater than 0"
         # zlens is unfortunately heterogeneous
         # Loop over each row in the catalog to see if zlens is something
         # that looks like a number
