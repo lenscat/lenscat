@@ -237,6 +237,7 @@ def plot_crossmatch(
         crossmatch_res,
         searched_prob_threshold=1.0,
         RA_unit="deg",
+        max_zoom_radius=15,
         filename="crossmatch_result.png",
         dark_theme=False
 ):
@@ -263,8 +264,8 @@ def plot_crossmatch(
     # Center the plot at the maxP estimate for ra and dec
     ra_maxP, dec_maxP = get_ra_dec_from_skymap(_skymap[0])
 
-    # If the zoom radius is above 15, abort
-    if zoom_radius > 15:
+    # If the zoom radius is above max_zoom_radius, abort
+    if zoom_radius > max_zoom_radius:
         # Use mollweide projection
         fig = plot_catalog(
             res,
