@@ -246,6 +246,9 @@ def plot_crossmatch(
     if "searched area" not in crossmatch_res.colnames:
         raise ValueError("No searched area found in table")
 
+    assert searched_prob_threshold >= 0 and searched_prob_threshold <= 1, \
+        "searched_prob_threshold must be between 0 and 1"
+
     # Filter res by searched_prob_threshold
     res = crossmatch_res[crossmatch_res["searched probability"] <= searched_prob_threshold]  
     if len(res) == 0:
