@@ -23,7 +23,7 @@ The code converts the catalog in the csv file into a custom `Catalog` object tha
 import lenscat; lenscat.catalog
 ```
 and this will show a formatted table to the output. For example,
-```
+```output_catalog
 <Catalog length=4587>
      name         RA       DEC     zlens     type   grading
                  deg       deg
@@ -62,7 +62,7 @@ import lenscat, numpy
 lenscat.catalog.search(grading="confident", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
 ```
 The output would be something like
-```
+```output_search_confident_cluster
 <Catalog length=3>
      name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
@@ -80,7 +80,7 @@ import lenscat
 lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
 ```
 Running this will give
-```
+```output_search_GW170814
 <Catalog length=3818>
      name          RA        DEC    zlens   type   grading  searched probability   searched area   
                   deg        deg                                                        deg2       
@@ -99,7 +99,7 @@ import lenscat
 lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
 ```
 In this case, the output would be
-```
+```output_search_GRB
 <Catalog length=4587>
        name             RA          DEC     zlens    type   grading  searched probability   searched area   
                        deg          deg                                                          deg2       
