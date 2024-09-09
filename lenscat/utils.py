@@ -115,6 +115,44 @@ def parse_skymap_str(skymap_str):
         "GW190929_012149",
         "GW190930_133541",
     ]
+    _supported_GWTC3_event_list = [
+        "GW191103_012549",
+        "GW191105_143521",
+        "GW191109_010717",
+        "GW191113_071753",
+        "GW191126_115259",
+        "GW191127_050227",
+        "GW191129_134029",
+        "GW191204_110529",
+        "GW191204_171526",
+        "GW191215_223052",
+        "GW191216_213338",
+        "GW191219_163120",
+        "GW191222_033537",
+        "GW191230_180458",
+        "GW200105_162426",
+        "GW200112_155838",
+        "GW200115_042309",
+        "GW200128_022011",
+        "GW200129_065458",
+        "GW200202_154313",
+        "GW200208_130117",
+        "GW200208_222617",
+        "GW200209_085452",
+        "GW200210_092254",
+        "GW200216_220804",
+        "GW200219_094415",
+        "GW200220_061928",
+        "GW200220_124850",
+        "GW200224_222234",
+        "GW200225_060421",
+        "GW200302_015811",
+        "GW200306_093714",
+        "GW200308_173609",
+        "GW200311_115853",
+        "GW200316_215756",
+        "GW200322_091133",
+    ]
     if skymap_str in _supported_GWTC1_event_list:
         # skymap_str points to an event in GWTC-1
         dcc_url_template = "https://dcc.ligo.org/public/0157/P1800381/007/{}_skymap.fits.gz"
@@ -135,6 +173,24 @@ def parse_skymap_str(skymap_str):
         filename = _filename_template.format(skymap_str)
         tarfile.open(".cache/all_skymaps.tar").extract("all_skymaps/{}".format(filename), path=".cache")
         return f".cache/all_skymaps/{filename}"
+    elif skymap_str in _supported_GWTC3_event_list:
+        # Need to download *all* GWTC-3 skymaps first
+        # NOTE This is not going to be very fast
+        if not os.path.exists(".cache/IGWN-GWTC3p0-v2-PESkyLocalizations.tar.gz"):
+            os.makedirs(".cache", exist_ok=True)
+            response = requests.get(
+                "https://zenodo.org/api/records/8177023/files/IGWN-GWTC3p0-v2-PESkyLocalizations.tar.gz/content"
+            )
+            with open(".cache/IGWN-GWTC3p0-v2-PESkyLocalizations.tar.gz", 'wb') as f:
+                f.write(response.content)
+        # Extract from the tarball
+        import tarfile
+        _filename_template = "IGWN-GWTC3p0-v2-{}_PEDataRelease_cosmo_reweight_C01:Mixed.fits"
+        filename = _filename_template.format(skymap_str)
+        tarfile.open(".cache/IGWN-GWTC3p0-v2-PESkyLocalizations.tar.gz").extract(
+            "IGWN-GWTC3p0-v2-PESkyLocalizations/{}".format(filename), path=".cache"
+        )
+        return f".cache/IGWN-GWTC3p0-v2-PESkyLocalizations/{filename}"
     elif skymap_str.startswith('S'):
         # Maybe skymap_str is the name of a superevent
         gracedb_skymap_url_template = "https://gracedb.ligo.org/api/superevents/{}/files/{}.multiorder.fits"
