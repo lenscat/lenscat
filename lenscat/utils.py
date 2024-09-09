@@ -74,12 +74,67 @@ def parse_skymap_str(skymap_str):
         "GW170818",
         "GW170823",
     ]
+    _supported_GWTC2_event_list = [
+        "GW190408_181802",
+        "GW190412",
+        "GW190413_052954",
+        "GW190413_134308",
+        "GW190421_213856",
+        "GW190424_180648",
+        "GW190425",
+        "GW190426_152155",
+        "GW190503_185404",
+        "GW190512_180714",
+        "GW190513_205428",
+        "GW190514_065416",
+        "GW190517_055101",
+        "GW190519_153544",
+        "GW190521",
+        "GW190521_074359",
+        "GW190527_092055",
+        "GW190602_175927",
+        "GW190620_030421",
+        "GW190630_185205",
+        "GW190701_203306",
+        "GW190706_222641",
+        "GW190707_093326",
+        "GW190708_232457",
+        "GW190719_215514",
+        "GW190720_000836",
+        "GW190727_060333",
+        "GW190728_064510",
+        "GW190731_140936",
+        "GW190803_022701",
+        "GW190814",
+        "GW190828_063405",
+        "GW190828_065509",
+        "GW190909_114149",
+        "GW190910_112807",
+        "GW190915_235702",
+        "GW190924_021846",
+        "GW190929_012149",
+        "GW190930_133541",
+    ]
     if skymap_str in _supported_GWTC1_event_list:
         # skymap_str points to an event in GWTC-1
         dcc_url_template = "https://dcc.ligo.org/public/0157/P1800381/007/{}_skymap.fits.gz"
         url = dcc_url_template.format(skymap_str)
         if requests.options(url).ok:
             return url
+    elif skymap_str in _supported_GWTC2_event_list:
+        # Need to download *all* GWTC-2 skymaps first
+        # NOTE This is not going to be very fast
+        if not os.path.exists(".cache/all_skymaps.tar"):
+            os.makedirs(".cache", exist_ok=True)
+            response = requests.get("https://dcc.ligo.org/public/0169/P2000223/007/all_skymaps.tar")
+            with open(".cache/all_skymaps.tar", 'wb') as f:
+                f.write(response.content)
+        # Extract from the tarball
+        import tarfile
+        _filename_template = "{}_PublicationSamples.fits"
+        filename = _filename_template.format(skymap_str)
+        tarfile.open(".cache/all_skymaps.tar").extract("all_skymaps/{}".format(filename), path=".cache")
+        return f".cache/all_skymaps/{filename}"
     elif skymap_str.startswith('S'):
         # Maybe skymap_str is the name of a superevent
         gracedb_skymap_url_template = "https://gracedb.ligo.org/api/superevents/{}/files/{}.multiorder.fits"
