@@ -23,24 +23,24 @@ The code converts the catalog in the csv file into a custom `Catalog` object tha
 import lenscat; lenscat.catalog
 ```
 and this will show a formatted table to the output. For example,
-```
+```output_catalog
 <Catalog length=4587>
      name         RA       DEC     zlens     type   grading
                  deg       deg
     str20      float64   float64   str15     str7     str9
 ------------- ---------- -------- -------- ------- ---------
-   J0011-0845    2.83435  -8.7643        -  galaxy confirmed
-   J0013+5119   3.348077  51.3183        -  galaxy confirmed
- PSJ0028+0631    7.09369   6.5317        -  galaxy confirmed
- PSJ0030-1525     7.5636 -15.4177 measured  galaxy confirmed
-   J0047+2514 11.9465943  25.2411        -  galaxy confirmed
-  HE0047-1756    12.6158 -17.6693    0.407  galaxy confirmed
+   J0011-0845    2.83435  -8.7643        -  galaxy confident
+   J0013+5119   3.348077  51.3183        -  galaxy confident
+ PSJ0028+0631    7.09369   6.5317        -  galaxy confident
+ PSJ0030-1525     7.5636 -15.4177 measured  galaxy confident
+   J0047+2514 11.9465943  25.2411        -  galaxy confident
+  HE0047-1756    12.6158 -17.6693    0.407  galaxy confident
           ...        ...      ...      ...     ...       ...
 235614+023115  359.05923  2.52107    0.372  galaxy  probable
 235730+010133 359.377643  1.02596    0.638  galaxy  probable
 235811+003309   359.5475   0.5527    0.639 cluster  probable
 235853+012406 359.721708 1.401816    0.481  galaxy  probable
-235933+020823   359.8897   2.1398     0.43 cluster confirmed
+235933+020823   359.8897   2.1398     0.43 cluster confident
 235948-005913  359.95245 -0.98702    0.758  galaxy  probable
 235952+004154   359.9698   0.6985    0.267 cluster  probable
 ```
@@ -56,31 +56,31 @@ This feature is implemented as `.search()`. One can search/filter by any combina
 - type of the lenses (specified as `lens_type`)
 - grading of the lenses (specified as `grading`)
 
-For example, to get a list of the cluster-scale lenses which are confirmed and with a redshift $z_{\mathrm{lens}} \geq 1$ together with the reference, run
+For example, to get a list of the cluster-scale lenses which are confidently identified and with a redshift $z_{\mathrm{lens}} \geq 1$ together with the reference, run
 ```python
 import lenscat, numpy
-lenscat.catalog.search(grading="confirmed", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
+lenscat.catalog.search(grading="confident", lens_type="cluster", zlens_range=(1,numpy.inf)).show_ref()
 ```
 The output would be something like
-```
+```output_search_confident_cluster
 <Catalog length=3>
      name         RA       DEC    zlens   type   grading                                        ref
                  deg       deg
     str20      float64   float64  str15   str7     str9                                        str171
 ------------- --------- --------- ----- ------- --------- ------------------------------------------------------------------
-021118-042729 32.827087 -4.458069  1.02 cluster confirmed https://arxiv.org/abs/2004.00634 More et al. 2012 More et al. 2016
-023100-062139   37.7516   -6.3608  1.17 cluster confirmed                                   https://arxiv.org/abs/2002.01611
-220859+020655  332.2495    2.1153  1.04 cluster confirmed                                   https://arxiv.org/abs/2002.01611
+021118-042729 32.827087 -4.458069  1.02 cluster confident https://arxiv.org/abs/2004.00634 More et al. 2012 More et al. 2016
+023100-062139   37.7516   -6.3608  1.17 cluster confident                                   https://arxiv.org/abs/2002.01611
+220859+020655  332.2495    2.1153  1.04 cluster confident                                   https://arxiv.org/abs/2002.01611
 ```
 
 ### Crossmatching with a skymap
-This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW170814 (download from [here](https://dcc.ligo.org/public/0157/P1800381/007/GW170814_skymap.fits.gz)) with only the confirmed lenses in the `lenscat` catalog, simply run
+This feature is implemented as `.crossmatch()`. This function is simply a wrapper to the `crossmatch()` function in `ligo.skymap` which performs the cross-matching of a gravitational-wave (GW) skymap with a given list of coordinates. For example, to cross-match the GW skymap of GW170814 (download from [here](https://dcc.ligo.org/public/0157/P1800381/007/GW170814_skymap.fits.gz)) with only galaxy-scale lenses in the `lenscat` catalog, simply run
 ```python
 import lenscat
 lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
 ```
 Running this will give
-```
+```output_search_GW170814
 <Catalog length=3818>
      name          RA        DEC    zlens   type   grading  searched probability   searched area   
                   deg        deg                                                        deg2       
@@ -90,8 +90,8 @@ Running this will give
  DESJ0311-4232   47.86322 -42.53863   0.37 galaxy  probable   0.2301796464718608  5.619333233953008
  DESJ0310-4647   47.63526 -46.78398   0.71 galaxy  probable  0.36778302134840013 10.261676209026643
  DESJ0301-4426    45.4638 -44.44055   0.76 galaxy  probable   0.4683381098641989 14.661410864782189
- DESJ0304-4921   46.06729 -49.35725   0.34 galaxy confirmed   0.6465740359340766 26.791826830724982
- DESJ0300-5001   45.09019 -50.02469   0.53 galaxy confirmed   0.7082286031333002 33.860252998986475
+ DESJ0304-4921   46.06729 -49.35725   0.34 galaxy confident   0.6465740359340766 26.791826830724982
+ DESJ0300-5001   45.09019 -50.02469   0.53 galaxy confident   0.7082286031333002 33.860252998986475
 ```
 The cross-matching can be done to the sky localization from any type of transients as long as it is in the FITS format. For example, to cross-match the localization of GRB 240229A (download from [here](https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/2024/bn240229588/quicklook/glg_healpix_all_bn240229588.fit)), simply run
 ```python
@@ -99,17 +99,17 @@ import lenscat
 lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
 ```
 In this case, the output would be
-```
+```output_search_GRB
 <Catalog length=4587>
        name             RA          DEC     zlens    type   grading  searched probability   searched area   
                        deg          deg                                                          deg2       
       str20          float64      float64   str15    str7     str9         float64             float64      
 ------------------ ------------ ----------- ------ ------- --------- -------------------- ------------------
-   SDSSJ1320+1644*    200.24778    16.73437  0.899  galaxy confirmed   0.1614180609749184 6.9241725729921235
-    SDSSJ1330+1750    202.63079    17.84456 0.2074  galaxy confirmed   0.6132034472687292  44.48256319619201
-    SDSSJ1304+2001    196.18166    20.01805   0.4?  galaxy confirmed   0.6545106150094973  51.40673576918417
-    SDSSJ1330+1810    202.57772    18.17581  0.373  galaxy confirmed   0.6730233044611307  54.97373376133156
-    SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confirmed   0.6890963497394108  58.33090834217615
+   SDSSJ1320+1644*    200.24778    16.73437  0.899  galaxy confident   0.1614180609749184 6.9241725729921235
+    SDSSJ1330+1750    202.63079    17.84456 0.2074  galaxy confident   0.6132034472687292  44.48256319619201
+    SDSSJ1304+2001    196.18166    20.01805   0.4?  galaxy confident   0.6545106150094973  51.40673576918417
+    SDSSJ1330+1810    202.57772    18.17581  0.373  galaxy confident   0.6730233044611307  54.97373376133156
+    SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confident   0.6890963497394108  58.33090834217615
 ```
 
 To generate a visualization of a crossmatching result, simply invoke `.plot()` to a crossmatching result. For example,
@@ -146,11 +146,11 @@ will generate a figure like this
   </tr>
   <tr>
      <td><code>type</code></td>
-     <td>Type of lens (i.e. galaxy or galaxy cluster)</td>
+     <td>Type of lens (i.e. galaxy or galaxy cluster). Either<code>galaxy</code> or <code>cluster</code>.</td>
   </tr>
   <tr>
      <td><code>grading</code></td>
-     <td>Grading whether it is a confirmed lens or a probable lens (see individual references for internal grading systems)</td>
+     <td>Grading whether it is a confidently identified lens or a probable lens (see individual references for internal grading systems). Either <code>confident</code> or <code>probable</code>.</td>
   </tr>
   <tr>
      <td><code>ref</code></td>

@@ -10,7 +10,7 @@ from .utils import plot_catalog, plot_crossmatch
 
 class _Catalog(Table):
     _allowed_type = ["galaxy", "cluster"]
-    _allowed_grading = ["confirmed", "probable"]
+    _allowed_grading = ["confident", "probable"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
