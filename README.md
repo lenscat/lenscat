@@ -25,31 +25,24 @@ import lenscat; lenscat.catalog
 and this will show a formatted table to the output. For example,
 ```output_catalog
 <Catalog length=4587>
-     name         RA        DEC      zlens     type   grading 
-                 deg        deg                               
-    str20      float64    float64    str15     str7     str9  
-------------- ---------- ---------- -------- ------- ---------
-   J0011-0845    2.83435    -8.7643        -  galaxy confident
-   J0013+5119   3.348077    51.3183        -  galaxy confident
- PSJ0028+0631    7.09369     6.5317        -  galaxy confident
- PSJ0030-1525     7.5636   -15.4177 measured  galaxy confident
-   J0047+2514 11.9465943    25.2411        -  galaxy confident
-  HE0047-1756    12.6158   -17.6693    0.407  galaxy confident
-DESJ0053-2012    13.4349   -20.2091 observed  galaxy confident
-   J0102+2445   15.69675    24.7544   0.272?  galaxy confident
-DESJ0112-1650  18.141188 -16.840955     0.54  galaxy confident
-          ...        ...        ...      ...     ...       ...
-235428-001256  358.61846   -0.21578    0.262  galaxy  probable
-235503+014443 358.765312   1.745288    0.522  galaxy  probable
-235535+021044   358.8969     2.1791    0.519 cluster  probable
-235614+023115  359.05923    2.52107    0.372  galaxy  probable
-235730+010133 359.377643    1.02596    0.638  galaxy  probable
-235811+003309   359.5475     0.5527    0.639 cluster  probable
-235853+012406 359.721708   1.401816    0.481  galaxy  probable
-235933+020823   359.8897     2.1398     0.43 cluster confident
-235948-005913  359.95245   -0.98702    0.758  galaxy  probable
-235952+004154   359.9698     0.6985    0.267 cluster  probable
- 
+     name         RA       DEC     zlens     type   grading
+                 deg       deg
+    str20      float64   float64   str15     str7     str9
+------------- ---------- -------- -------- ------- ---------
+   J0011-0845    2.83435  -8.7643        -  galaxy confident
+   J0013+5119   3.348077  51.3183        -  galaxy confident
+ PSJ0028+0631    7.09369   6.5317        -  galaxy confident
+ PSJ0030-1525     7.5636 -15.4177 measured  galaxy confident
+   J0047+2514 11.9465943  25.2411        -  galaxy confident
+  HE0047-1756    12.6158 -17.6693    0.407  galaxy confident
+          ...        ...      ...      ...     ...       ...
+235614+023115  359.05923  2.52107    0.372  galaxy  probable
+235730+010133 359.377643  1.02596    0.638  galaxy  probable
+235811+003309   359.5475   0.5527    0.639 cluster  probable
+235853+012406 359.721708 1.401816    0.481  galaxy  probable
+235933+020823   359.8897   2.1398     0.43 cluster confident
+235948-005913  359.95245 -0.98702    0.758  galaxy  probable
+235952+004154   359.9698   0.6985    0.267 cluster  probable
 ```
 Note that the code will try to assign the unit for each of the columns inferred from its name, and that it will hide the 'ref' column *by default*. One can show or hide the 'ref' column by calling `.show_ref()` and `.hide_ref()` on the `Catalog` object respectively.
 
@@ -71,14 +64,13 @@ lenscat.catalog.search(grading="confident", lens_type="cluster", zlens_range=(1,
 The output would be something like
 ```output_search_confident_cluster
 <Catalog length=3>
-     name         RA       DEC    zlens   type   grading                                        ref                                       
-                 deg       deg                                                                                                            
-    str20      float64   float64  str15   str7     str9                                        str171                                     
-------------- --------- --------- ----- ------- --------- --------------------------------------------------------------------------------
-021118-042729 32.827087 -4.458069  1.02 cluster confident https://arxiv.org/abs/2004.00634 More et al. 2012[FIXME] More et al. 2016[FIXME]
-023100-062139   37.7516   -6.3608  1.17 cluster confident                                                 https://arxiv.org/abs/2002.01611
-220859+020655  332.2495    2.1153  1.04 cluster confident                                                 https://arxiv.org/abs/2002.01611
- 
+     name         RA       DEC    zlens   type   grading                                        ref
+                 deg       deg
+    str20      float64   float64  str15   str7     str9                                        str171
+------------- --------- --------- ----- ------- --------- ------------------------------------------------------------------
+021118-042729 32.827087 -4.458069  1.02 cluster confident https://arxiv.org/abs/2004.00634 More et al. 2012 More et al. 2016
+023100-062139   37.7516   -6.3608  1.17 cluster confident                                   https://arxiv.org/abs/2002.01611
+220859+020655  332.2495    2.1153  1.04 cluster confident                                   https://arxiv.org/abs/2002.01611
 ```
 
 ### Crossmatching with a skymap
@@ -89,7 +81,7 @@ lenscat.catalog.search(lens_type="galaxy").crossmatch("GW170814_skymap.fits.gz")
 ```
 Running this will give
 ```output_search_GW170814
-<CrossmatchResult length=3818>
+<Catalog length=3818>
      name          RA        DEC    zlens   type   grading  searched probability   searched area   
                   deg        deg                                                        deg2       
     str20       float64    float64  str15   str7     str9         float64             float64      
@@ -100,21 +92,6 @@ Running this will give
  DESJ0301-4426    45.4638 -44.44055   0.76 galaxy  probable   0.4683381098641989 14.661410864782189
  DESJ0304-4921   46.06729 -49.35725   0.34 galaxy confident   0.6465740359340766 26.791826830724982
  DESJ0300-5001   45.09019 -50.02469   0.53 galaxy confident   0.7082286031333002 33.860252998986475
- DESJ0320-4159   50.11682 -41.98881   0.66 galaxy  probable   0.7333678230113636 37.689530255261715
- DESJ0235-4818   38.86317 -48.30583   0.47 galaxy  probable   0.7502684940168021   40.6008300870876
- DESJ0242-4811   40.68463 -48.19355   0.48 galaxy  probable   0.7899164033300675  48.52166386376813
-           ...        ...       ...    ...    ...       ...                  ...                ...
- 145130+042054 222.878531  4.348363    0.7 galaxy  probable   0.9999999999999997  41252.96124941707
- 150408+015744 226.037262  1.962391  0.525 galaxy  probable   0.9999999999999997  41252.96124941707
- 145402+013809  223.51216  1.636013  0.537 galaxy  probable   0.9999999999999997  41252.96124941707
-SDSSJ1425+0951  216.39804      9.85 0.1583 galaxy  probable   0.9999999999999997  41252.96124941707
-SDSSJ1531+0652  232.80183   6.87033 0.2085 galaxy  probable   0.9999999999999997  41252.96124941707
-ULASJ1529+1038  232.41203  10.63454   0.4? galaxy confident   0.9999999999999997  41252.96124941707
-SDSSJ1455+1447  223.75782  14.79301  0.42* galaxy confident   0.9999999999999997  41252.96124941707
-SDSSJ1515+1511   228.9106  15.19309  0.742 galaxy confident   0.9999999999999997  41252.96124941707
- 145459+015846  223.74648  1.979505  0.375 galaxy  probable   0.9999999999999997  41252.96124941707
- 145612+011941  224.05141  1.328216  0.555 galaxy  probable   0.9999999999999997  41252.96124941707
- 
 ```
 The cross-matching can be done to the sky localization from any type of transients as long as it is in the FITS format. For example, to cross-match the localization of GRB 240229A (download from [here](https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/2024/bn240229588/quicklook/glg_healpix_all_bn240229588.fit)), simply run
 ```python
@@ -123,32 +100,16 @@ lenscat.catalog.crossmatch("glg_healpix_all_bn240229588.fit")
 ```
 In this case, the output would be
 ```output_search_GRB
-<CrossmatchResult length=4587>
-      name           RA          DEC     zlens    type   grading  searched probability   searched area   
-                    deg          deg                                                          deg2       
-     str20        float64      float64   str15    str7     str9         float64             float64      
---------------- ------------ ----------- ------ ------- --------- -------------------- ------------------
-SDSSJ1320+1644*    200.24778    16.73437  0.899  galaxy confident   0.1614180609749184 6.9241725729921235
- SDSSJ1330+1750    202.63079    17.84456 0.2074  galaxy confident   0.6132034472687292  44.48256319619201
- SDSSJ1304+2001    196.18166    20.01805   0.4?  galaxy confident   0.6545106150094973  51.40673576918417
- SDSSJ1330+1810    202.57772    18.17581  0.373  galaxy confident   0.6730233044611307  54.97373376133156
- SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confident   0.6890963497394108  58.33090834217615
- SDSSJ1254+1857     193.6681    18.95333  0.555  galaxy confident   0.7941818270703923  90.22406686019981
- SDSSJ1322+1052    200.65152     10.8778  0.55?  galaxy confident   0.8414948789612942 114.35375916002097
- SDSSJ1339+1310    204.77999     13.1775  0.607  galaxy confident   0.8806457604955152 143.09956650850438
-SDSS J1329+2243  202.3916667 22.71673333 0.4427 cluster confident   0.8841570484842778 146.24691767804637
-            ...          ...         ...    ...     ...       ...                  ...                ...
- SDSSJ0746+4403      116.721    44.06425  0.513  galaxy confident                  1.0 40823.242903023274
- SDSSJ0754+4202    118.50279    42.04672 0.3692  galaxy  probable                  1.0 40823.242903023274
- SDSSJ0753+3839    118.27954    38.66086 0.0408  galaxy  probable                  1.0 40823.242903023274
- SDSSJ0821+4542     125.4943    45.71233  0.349  galaxy confident                  1.0 40823.242903023274
-      Abell 611  120.2367917 36.05669444  0.288 cluster confident                  1.0 40823.242903023274
-MACS0744.9+3927       116.22 39.45677778  0.686 cluster confident                  1.0 40823.242903023274
-      H1543+535  10.83708333 53.86444444  0.497  galaxy confident                  1.0  41038.10207619734
-      Q0957+561 0.3366666667 55.89705556  0.356  galaxy confident                  1.0  41038.10207619734
-      B0128+437     22.80585    43.97032 1.145?  galaxy confident                  1.0  41038.10207619734
-      H1417+526  4.402083333 52.44444444   0.81  galaxy confident                  1.0  41038.10207619734
- 
+<Catalog length=4587>
+       name             RA          DEC     zlens    type   grading  searched probability   searched area   
+                       deg          deg                                                          deg2       
+      str20          float64      float64   str15    str7     str9         float64             float64      
+------------------ ------------ ----------- ------ ------- --------- -------------------- ------------------
+   SDSSJ1320+1644*    200.24778    16.73437  0.899  galaxy confident   0.1614180609749184 6.9241725729921235
+    SDSSJ1330+1750    202.63079    17.84456 0.2074  galaxy confident   0.6132034472687292  44.48256319619201
+    SDSSJ1304+2001    196.18166    20.01805   0.4?  galaxy confident   0.6545106150094973  51.40673576918417
+    SDSSJ1330+1810    202.57772    18.17581  0.373  galaxy confident   0.6730233044611307  54.97373376133156
+    SDSSJ1258+1657    194.58017    16.95489   0.4?  galaxy confident   0.6890963497394108  58.33090834217615
 ```
 
 To generate a visualization of a crossmatching result, simply invoke `.plot()` to a crossmatching result. For example,
