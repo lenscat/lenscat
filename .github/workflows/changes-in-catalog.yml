@@ -33,6 +33,7 @@ jobs:
       - name: Update README.md
         continue-on-error: true # Allow failure
         run : |
+          pip install ipython
           bash .github/workflows/update_README.sh
       - name: Configure git user info
         run: |
