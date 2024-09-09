@@ -56,13 +56,13 @@ lenscat.catalog.search(grading="confident", lens_type="cluster", zlens_range=(1,
 The output would be something like
 ```output_search_confident_cluster
 <Catalog length=3>
-     name         RA       DEC    zlens   type   grading                                        ref                                       
-                 deg       deg                                                                                                            
-    str20      float64   float64  str15   str7     str9                                        str171                                     
-------------- --------- --------- ----- ------- --------- --------------------------------------------------------------------------------
-021118-042729 32.827087 -4.458069  1.02 cluster confident https://arxiv.org/abs/2004.00634 More et al. 2012[FIXME] More et al. 2016[FIXME]
-023100-062139   37.7516   -6.3608  1.17 cluster confident                                                 https://arxiv.org/abs/2002.01611
-220859+020655  332.2495    2.1153  1.04 cluster confident                                                 https://arxiv.org/abs/2002.01611
+     name         RA       DEC    zlens   type   grading                                                 ref                                               
+                 deg       deg                                                                                                                             
+    str20      float64   float64  str15   str7     str9                                                 str227                                             
+------------- --------- --------- ----- ------- --------- -------------------------------------------------------------------------------------------------
+021118-042729 32.827087 -4.458069  1.02 cluster confident https://arxiv.org/abs/2004.00634 https://arxiv.org/abs/1109.1821 https://arxiv.org/abs/1504.05587
+023100-062139   37.7516   -6.3608  1.17 cluster confident                                                                  https://arxiv.org/abs/2002.01611
+220859+020655  332.2495    2.1153  1.04 cluster confident                                                                  https://arxiv.org/abs/2002.01611
  
 ```
 
