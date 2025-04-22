@@ -140,7 +140,7 @@ will generate a figure like this
   </tr>
   <tr>
      <td><code>type</code></td>
-     <td>Type of lens (i.e. galaxy or galaxy cluster). Either<code>galaxy</code> or <code>cluster</code>.</td>
+     <td>Type of lens (i.e. galaxy or galaxy cluster). Either<code>galaxy</code>, <code>group</code> or <code>cluster</code>.</td>
   </tr>
   <tr>
      <td><code>grading</code></td>

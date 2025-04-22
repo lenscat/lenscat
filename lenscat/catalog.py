@@ -9,7 +9,7 @@ from .utils import convert_to_astropy_unit, parse_skymap
 from .utils import plot_catalog, plot_crossmatch
 
 class _Catalog(Table):
-    _allowed_type = ["galaxy", "cluster"]
+    _allowed_type = ["galaxy", "cluster", "group"]
     _allowed_grading = ["confident", "probable"]
 
     def __init__(self, *args, **kwargs):
