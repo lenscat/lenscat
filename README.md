@@ -184,6 +184,24 @@ This catalog contains the known strong lenses from the following studies:
 ## See also
 [Master Lens Database](https://test.masterlens.org/index.php)
 
+## How to cite
+If you have used this code in your research that leads to a publication, please cite the following article:
+```
+@article{Vujeva:2024scq,
+    author = "Vujeva, L. and Lo, R. K. L. and Ezquiaga, J. M. and Chan, J. C. L.",
+    title = "{lenscat: a Public and Community-Contributed Catalog of Known Strong Gravitational Lenses}",
+    journal = {Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences},
+    volume = {383},
+    number = {2294},
+    pages = {20240168},
+    year = {2025},
+    doi = {10.1098/rsta.2024.0168},
+    eprint = "2406.04398",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.GA",
+}
+```
+
 ## Acknowledgements
 This project was supported by the research grant no. VIL37766 and no. VIL53101 from Villum Fonden, and the DNRF Chair program grant no. DNRF162 by the Danish National Research Foundation.
 
