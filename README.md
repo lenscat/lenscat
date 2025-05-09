@@ -182,6 +182,9 @@ This catalog contains the known strong lenses from the following studies:
   - [Survey of Gravitationally-lensed Objects in HSC Imaging (SuGOHI) Candidate List](https://www-utap.phys.s.u-tokyo.ac.jp/~oguri/sugohi/)
 
 ## See also
+
+`lenscat` makes use of the LaStBeRu catalog, which should be cited as “R. Alves de Oliveira, J. P. C. França, M. Makler, The Last Stand Before Rubin: a consolidated sample of strong lensing systems in wide-field surveys, in prep.".
+
 [Master Lens Database](https://test.masterlens.org/index.php)
 
 ## How to cite
