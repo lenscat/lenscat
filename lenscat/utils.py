@@ -293,9 +293,9 @@ def make_transparent_colormap(colormap: str) -> ListedColormap:
 
 def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=False, **axes_kwargs):
     # Filter catalog by type
-    galaxy_lenses = catalog.filter_by_type("galaxy")
-    cluster_lenses = catalog.filter_by_type("cluster")
-    group_lenses = catalog.filter_by_type("group")
+    galaxy_lenses_filter = catalog.filter_by_type("galaxy", return_copy=False)
+    cluster_lenses_filter = catalog.filter_by_type("cluster", return_copy=False)
+    group_lenses_filter = catalog.filter_by_type("group", return_copy=False)
 
     if RA_unit == "deg":
         _projection = "astro degrees mollweide"
@@ -311,25 +311,25 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
     fig = plt.figure(dpi=300)
     ax = plt.axes(**_kwargs)
     ax.grid()
-    if len(galaxy_lenses) > 0:
+    if np.sum(galaxy_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=galaxy_lenses["RA"], dec=galaxy_lenses["DEC"]),
+            SkyCoord(ra=catalog[galaxy_lenses_filter]["RA"], dec=catalog[galaxy_lenses_filter]["DEC"]),
             color="deepskyblue",
             s=5,
             label="Galaxy",
             alpha = 0.95
         )
-    if len(group_lenses) > 0:
+    if np.sum(group_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=group_lenses["RA"], dec=group_lenses["DEC"]),
+            SkyCoord(ra=catalog[group_lenses_filter]["RA"], dec=catalog[group_lenses_filter]["DEC"]),
             color="orange",
             s=5,
             label="Group",
             alpha = 0.95
         )
-    if len(cluster_lenses) > 0:
+    if np.sum(cluster_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=cluster_lenses["RA"], dec=cluster_lenses["DEC"]),
+            SkyCoord(ra=catalog[cluster_lenses_filter]["RA"], dec=catalog[cluster_lenses_filter]["DEC"]),
             color="violet",
             s=5,
             label="Cluster",

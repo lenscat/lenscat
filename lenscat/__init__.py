@@ -12,5 +12,8 @@ catalog_filepath = os.path.join(
 )
 
 # Construct a Catalog object from the csv file
-catalog = Catalog.read(catalog_filepath, format="ascii.csv")
+catalog = Catalog.read(
+    catalog_filepath,
+    format="ascii.csv",
+)
 
