@@ -1,6 +1,6 @@
 import os
 import pathlib
-from astropy.table import Table
+import pandas as pd
 from .catalog import Catalog, CrossmatchResult
 
 # The relative path to the actual catalog in csv format
@@ -12,8 +12,7 @@ catalog_filepath = os.path.join(
 )
 
 # Construct a Catalog object from the csv file
-catalog = Catalog.read(
+df = pd.read_csv(
     catalog_filepath,
-    format="ascii.csv",
 )
-
+catalog = Catalog(df)

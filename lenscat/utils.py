@@ -15,6 +15,18 @@ from ligo.skymap.io import read_sky_map
 from ligo.skymap.postprocess.util import find_greedy_credible_levels
 import healpy as hp
 
+def format_ref_column(table: Table, show_ref=False) -> None:
+    if show_ref:
+        try:
+            table.pprint_exclude_names.remove("ref")
+        except:
+            pass # Fail silently
+    else:
+        try:
+            table.pprint_exclude_names.add("ref")
+        except:
+            pass # Fail silently
+    
 def convert_to_astropy_unit(table: Table) -> None:
     """
     Convert columns in the given astropy table to the proper astropy unit if possible.
@@ -313,7 +325,7 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
     ax.grid()
     if np.sum(galaxy_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=catalog[galaxy_lenses_filter]["RA"], dec=catalog[galaxy_lenses_filter]["DEC"]),
+            SkyCoord(ra=catalog._table[galaxy_lenses_filter]["RA"], dec=catalog._table[galaxy_lenses_filter]["DEC"]),
             color="deepskyblue",
             s=5,
             label="Galaxy",
@@ -321,7 +333,7 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
         )
     if np.sum(group_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=catalog[group_lenses_filter]["RA"], dec=catalog[group_lenses_filter]["DEC"]),
+            SkyCoord(ra=catalog._table[group_lenses_filter]["RA"], dec=catalog._table[group_lenses_filter]["DEC"]),
             color="orange",
             s=5,
             label="Group",
@@ -329,7 +341,7 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
         )
     if np.sum(cluster_lenses_filter) > 0:
         ax.scatter_coord(
-            SkyCoord(ra=catalog[cluster_lenses_filter]["RA"], dec=catalog[cluster_lenses_filter]["DEC"]),
+            SkyCoord(ra=catalog._table[cluster_lenses_filter]["RA"], dec=catalog._table[cluster_lenses_filter]["DEC"]),
             color="violet",
             s=5,
             label="Cluster",

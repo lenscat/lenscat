@@ -5,47 +5,51 @@ import astropy.units as u
 from astropy.table import Table, TableAttribute
 from astropy.coordinates import SkyCoord
 from ligo.skymap.postprocess import crossmatch as ligoskymap_crossmatch
-from .utils import convert_to_astropy_unit, parse_skymap
+from .utils import convert_to_astropy_unit, parse_skymap, format_ref_column
 from .utils import plot_catalog, plot_crossmatch
 
-class _Catalog(Table):
+class _Catalog():
     _allowed_type = ["galaxy", "cluster", "group"]
     _allowed_grading = ["confident", "probable"]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        convert_to_astropy_unit(self)
-        self.hide_ref() # By default, hide the ref column
+    def __init__(self, dataframe=None):
+        self._df = dataframe
+        if len(self._df) == 0:
+            raise ValueError("The given data frame is empty")
+        # Figure out the column names
+        self._table = Table.from_pandas(self._df[0:1])
+        convert_to_astropy_unit(self._table)
+        self._table.remove_row(0)
+        # Update column names to be more consistent
+        self._df.rename({orig_name: new_name for orig_name, new_name in zip(self._df.columns, self._table.columns)}, axis="columns", inplace=True)
+        self.hide_ref()
 
     def hide_ref(self):
-        try:
-            self.pprint_exclude_names.add("ref")
-        except:
-            pass # Fail silently
-        return self
+        self._show_ref = False
+        format_ref_column(self._table, show_ref=False)
 
     def show_ref(self):
-        try:
-            self.pprint_exclude_names.remove("ref")
-        except:
-            pass # Fail silently
-        return self
+        self._show_ref = True
+        format_ref_column(self._table, show_ref=True)
 
     def filter_by_RA(self, RA_min=0.0, RA_max=360.0, return_copy=True):
         assert RA_min < RA_max, "RA_max must be greater than RA_min"
         assert RA_min >= 0.0 and RA_max <= 360.0, "RA must be between 0 and 360"
-        filter = (self["RA"] >= RA_min) & (self["RA"] <= RA_max)
+        filter = (self._df["RA"] >= RA_min) & (self._df["RA"] <= RA_max)
         if return_copy:
-            return self[filter]
+            _table = Table.from_pandas(self._df[filter])
+            convert_to_astropy_unit(_table)
+            format_ref_column(_table, self._show_ref)
+            return _table
         else:
             return filter
 
     def filter_by_DEC(self, DEC_min=-90, DEC_max=90, return_copy=True):
         assert DEC_min < DEC_max, "DEC_max must be greater than DEC_min"
         assert DEC_min >= -90.0 and DEC_max <= 90.0, "DEC must be between -90 and 90"
-        filter = (self["DEC"] >= DEC_min) & (self["DEC"] <= DEC_max)
+        filter = (self._table["DEC"] >= DEC_min) & (self._table["DEC"] <= DEC_max)
         if return_copy:
-            return self[filter]
+            return self._table[filter]
         else:
             return filter
 
@@ -57,7 +61,7 @@ class _Catalog(Table):
         # that looks like a number
         _regex = r"^(0|[1-9]\d*)(\.\d+)?(.*)$"
         regularized_zlens_arr = []
-        for zlens_str in self["zlens"]:
+        for zlens_str in self._table["zlens"]:
             m = re.search(_regex, str(zlens_str))
             if m is None:
                 regularized_zlens_arr.append(np.nan)
@@ -70,29 +74,29 @@ class _Catalog(Table):
 
         filter = (regularized_zlens_arr >= zlens_min) & (regularized_zlens_arr <= zlens_max)
         if return_copy:
-            return self[filter]
+            return self._table[filter]
         else:
             return filter
 
     def filter_by_type(self, lens_type, return_copy=True):
         assert lens_type in self._allowed_type, f"{lens_type} is not one of the recognized types: "+", ".join(self._allowed_type)
-        filter = (self["type"] == lens_type)
+        filter = (self._table["type"] == lens_type)
         if return_copy:
-            return self[filter]
+            return self._table[filter]
         else:
             return filter
 
     def filter_by_grading(self, grading, return_copy=True):
         assert grading in self._allowed_grading, f"{grading} is not one of the recognized gradings: "+", ".join(self._allowed_grading)
-        filter = (self["grading"] == grading)
+        filter = (self._table["grading"] == grading)
         if return_copy:
-            return self[filter]
+            return self._table[filter]
         else:
             return filter
 
     def search(self, RA_range=None, DEC_range=None, zlens_range=None, lens_type=None, grading=None):
         # Try to reduce memory usage by not copying the table
-        filter = np.ones(len(self), dtype=bool) # Start with all True
+        filter = np.ones(len(self._table), dtype=bool) # Start with all True
         if RA_range is not None:
             filter *= self.filter_by_RA(*RA_range, return_copy=False)
         if DEC_range is not None:
@@ -106,7 +110,7 @@ class _Catalog(Table):
         if zlens_range is not None:
             filter *= self.filter_by_zlens(*zlens_range, return_copy=False)
 
-        return self[filter]
+        return self._table[filter]
 
     def plot(self, **kwargs):
         return plot_catalog(self, **kwargs)
