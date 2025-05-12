@@ -295,6 +295,7 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
     # Filter catalog by type
     galaxy_lenses = catalog.filter_by_type("galaxy")
     cluster_lenses = catalog.filter_by_type("cluster")
+    group_lenses = catalog.filter_by_type("group")
 
     if RA_unit == "deg":
         _projection = "astro degrees mollweide"
@@ -316,6 +317,14 @@ def plot_catalog(catalog, RA_unit="deg", filename="catalog.png", dark_theme=Fals
             color="deepskyblue",
             s=5,
             label="Galaxy",
+            alpha = 0.95
+        )
+    if len(group_lenses) > 0:
+        ax.scatter_coord(
+            SkyCoord(ra=group_lenses["RA"], dec=group_lenses["DEC"]),
+            color="orange",
+            s=5,
+            label="Group",
             alpha = 0.95
         )
     if len(cluster_lenses) > 0:
