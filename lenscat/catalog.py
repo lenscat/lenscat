@@ -31,17 +31,33 @@ class _Catalog(Table):
             pass # Fail silently
         return self
 
-    def filter_by_RA(self, RA_min=0.0, RA_max=360.0):
+    def filter_by_RA(self, RA_min=0.0, RA_max=360.0, return_copy=True):
         assert RA_min < RA_max, "RA_max must be greater than RA_min"
         assert RA_min >= 0.0 and RA_max <= 360.0, "RA must be between 0 and 360"
-        return self[(self["RA"] >= RA_min) & (self["RA"] <= RA_max)]
+        # Use for loop instead of slicing to minimize memory usage
+        filter = np.zeros(len(self), dtype=bool)
+        for idx in range(len(self)):
+            if self[idx]["RA"] >= RA_min and self[idx]["RA"] <= RA_max:
+                filter[idx] = True
+        if return_copy:
+            return self[filter]
+        else:
+            return filter
 
-    def filter_by_DEC(self, DEC_min=-90, DEC_max=90):
+    def filter_by_DEC(self, DEC_min=-90, DEC_max=90, return_copy=True):
         assert DEC_min < DEC_max, "DEC_max must be greater than DEC_min"
         assert DEC_min >= -90.0 and DEC_max <= 90.0, "DEC must be between -90 and 90"
-        return self[(self["DEC"] >= DEC_min) & (self["DEC"] <= DEC_max)]
+        # Use for loop instead of slicing to minimize memory usage
+        filter = np.zeros(len(self), dtype=bool)
+        for idx in range(len(self)):
+            if self[idx]["DEC"] >= DEC_min and self[idx]["DEC"] <= DEC_max:
+                filter[idx] = True
+        if return_copy:
+            return self[filter]
+        else:
+            return filter
 
-    def filter_by_zlens(self, zlens_min=0.0, zlens_max=np.inf):
+    def filter_by_zlens(self, zlens_min=0.0, zlens_max=np.inf, return_copy=True):
         assert zlens_min < zlens_max, "zlens_max must be greater than zlens_min"
         assert zlens_min >= 0.0, "zlens_min must be greater than 0"
         # zlens is unfortunately heterogeneous
@@ -60,32 +76,49 @@ class _Catalog(Table):
                     regularized_zlens_arr.append(float(m.group(1)))
         regularized_zlens_arr = np.array(regularized_zlens_arr)
 
-        return self[(regularized_zlens_arr >= zlens_min) & (regularized_zlens_arr <= zlens_max)]
+        # Use for loop instead of slicing to minimize memory usage
+        filter = np.zeros(len(self), dtype=bool)
+        for idx in range(len(self)):
+            if regularized_zlens_arr[idx] >= zlens_min and regularized_zlens_arr[idx] <= zlens_max:
+                filter[idx] = True
+        if return_copy:
+            return self[filter]
+        else:
+            return filter
 
-    def filter_by_type(self, lens_type):
+    def filter_by_type(self, lens_type, return_copy=True):
         assert lens_type in self._allowed_type, f"{lens_type} is not one of the recognized types: "+", ".join(self._allowed_type)
-        return self[self["type"] == lens_type]
+        filter = (self["type"] == lens_type)
+        if return_copy:
+            return self[filter]
+        else:
+            return filter
 
-    def filter_by_grading(self, grading):
+    def filter_by_grading(self, grading, return_copy=True):
         assert grading in self._allowed_grading, f"{grading} is not one of the recognized gradings: "+", ".join(self._allowed_grading)
-        return self[self["grading"] == grading]
+        filter = (self["grading"] == grading)
+        if return_copy:
+            return self[filter]
+        else:
+            return filter
 
     def search(self, RA_range=None, DEC_range=None, zlens_range=None, lens_type=None, grading=None):
-        filtered_catalog = self # Create a 'view' of the catalog table
+        filter = np.ones(len(self), dtype=bool)
         if RA_range is not None:
-            filtered_catalog = filtered_catalog.filter_by_RA(*RA_range)
+            filter *= self.filter_by_RA(*RA_range, return_copy=False)
         if DEC_range is not None:
-            filtered_catalog = filtered_catalog.filter_by_DEC(*DEC_range)
+            filter *= self.filter_by_DEC(*DEC_range, return_copy=False)
         if lens_type is not None:
-            filtered_catalog = filtered_catalog.filter_by_type(lens_type)
+            filter *= self.filter_by_type(lens_type, return_copy=False)
         if grading is not None:
-            filtered_catalog = filtered_catalog.filter_by_grading(grading)
+            filter *= self.filter_by_grading(grading, return_copy=False)
     
         # Always filter by zlens last
         if zlens_range is not None:
-            filtered_catalog = filtered_catalog.filter_by_zlens(*zlens_range)
+            filter *= self.filter_by_zlens(*zlens_range, return_copy=False)
 
-        return filtered_catalog
+        # Create a new copy at the very end
+        return self[filter]
 
     def plot(self, **kwargs):
         return plot_catalog(self, **kwargs)
