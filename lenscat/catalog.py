@@ -15,8 +15,6 @@ class _Catalog(Table):
     def __init__(self, *args, **kwargs):
         kwargs.update({
             "copy": False,
-            "copy_indices": False,
-            "masked": False,
         })
         super().__init__(*args, **kwargs)
         convert_to_astropy_unit(self)
