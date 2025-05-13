@@ -40,7 +40,7 @@ def convert_to_astropy_unit(table: Table) -> None:
     and the second and third columns will have a unit of deg.
     """
     _regex = r"\[([A-Za-z0-9_]+)\]"
-    column_names = copy.copy(table.columns)
+    column_names = copy.deepcopy(table.columns)
     for colname in column_names:
         m = re.search(_regex, colname)
 
