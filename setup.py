@@ -29,6 +29,8 @@ setuptools.setup(
     install_requires=[
         "astropy >= 6.0.0",
         "ligo.skymap",
+        "numpy",
+        "pandas",
     ],
     classifiers=[
         "License :: OSI Approved :: MIT License",
